@@ -1,0 +1,33 @@
+:root {
+  --dark-blue: #222831;
+  --turquoise: #76ABAE;
+  --white: #EEE;
+  --blue: #0057FF;
+  --black: #000;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: inherit;
+  height: inherit;
+  background: var(--dark-blue);
+  color: #000;
+}
