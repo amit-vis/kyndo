@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+:root {
+  --dark-blue: #222831;
+  --turquoise: #76ABAE;
+  --white: #EEE;
+  --blue: #0057FF;
+  --black: #000;
+  --purple: #7469B6;
+  --pink: #FFE6E6;
+  --inter: "Inter", sans-serif;
+}
+
+.container {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #7469B6 50%, #FFE6E6 50%);
+}
+.navbar{
+    padding: 1rem 2rem;
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.logo{
+    width: 4rem;
+}
+.kyndo{
+    color: #FFE6E6;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+.main-form {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signup{
+    width: 30%;
+    height: 75%;
+    padding: 2rem 3rem;
+    border: 1px solid white;
+    background-color: white;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--inter);
+}
+.heading{
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.form{
+    height: 65%;
+    width: 100%;
+    margin-top: 2rem;
+}
+.input-box{
+    width: 100%;
+    margin-top: 1rem;
+    font-size: 1rem;
+    padding: .5rem;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.534);
+    outline: none;
+    font-family: var(--inter)
+}
+.t{
+    font-size: .8rem;
+    font-weight: 600;
+}
+.email,.password,.re-password{
+    margin-top: 1.5rem;
+}
+.sign-up-button{
+    width: 100%;
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 2px solid black;
+    background: transparent;
+    font-family: var(--inter);
+    font-weight: 600;
+    font-size: 1rem;
+}
+.sign-up-button:hover {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: var(--pink);
+    cursor: pointer;
+}
+.link{
+    font-size: smaller;
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    margin-top: .75rem;
+    color: var(--blue);
+}
