@@ -10,6 +10,13 @@ module.exports.create = async (req, res)=>{
                 success: false
             })
         }
+        const passwordRegx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!^&*+=]).{6,}$/;
+        if(!passwordRegx.test(password)){
+            return res.status(401).json({
+                message: "Password must contain at least one uppercase letter, one lowercase letter, one number, one special character, and be at least 6 characters long.",
+                success: false
+            })
+        }
         let user = await User.findOne({email: email});
         if(user){
             return res.status(401).json({
