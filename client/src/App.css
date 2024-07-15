@@ -37,3 +37,43 @@ body {
   color: #000;
   font-family: var(--inter);
 }
+
+ul {
+  list-style: none;
+}
+
+.navbar {
+  color: var(--turquoise);
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-weight: 600;
+}
+
+.navbar img {
+  width: 3rem;
+}
+
+
+.right-nav {
+  display: flex;
+  align-items: center;
+}
+
+.right-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 500;
+}
+
+.right-nav img {
+  width: 1.75rem;
+  margin-left: 1rem;
+}

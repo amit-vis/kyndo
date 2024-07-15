@@ -1,20 +1,18 @@
 import './signup.css';
-import logo from '../../assets/kyndo-dark.png';
+import logo from '../../assets/kyndo-light.png';
 
  const SignUp = ()=>{
     return(
         <>
-        <div className="container">
-            <div className="navbar">
+        <div className="fluid-container sign-container">
+            <div className="logo-div">
                 <img src={logo} alt="" className="logo" />
                 <div className="kyndo">Kyndo</div>
             </div>
             <div className="main-form">
                 <div className="signup">
-                    <div className="heading">
-                        <p>Create an account</p>
-                    </div>
-                    <div className="form">
+                    <p className='heading'>Create an account</p>
+                    <div className="sign-form">
                         <div className="username">
                             <p className="t">Username</p>
                             <input type="text" placeholder="Enter your username" className="input-box"/>
