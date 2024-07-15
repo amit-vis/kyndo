@@ -7,41 +7,35 @@ export default function Navbar() {
     return (
         <>
         <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <div className="logo">
-                    <img src={logo} alt="" />
+            <div class="container-fluid nav">
+                <div class="nav-left">
                     <Link to='/' style={{
                         textDecoration: 'none',
-                        color: 'inherit'
-                    }}><p className="brand-name">Kyndo</p></Link>
+                        color: 'inherit',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '1rem',
+                        fontWeight: '600'
+                    }}>
+                        <img src={logo} alt="logo" />
+                        <p className="brand-name">Kyndo</p>
+                    </Link>
                 </div>
-                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <Link to='/user' className="nav-link">Courses</Link>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <Link to='/user' className="nav-link"><img src={login} alt="login" /></Link>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div className="nav">
-            
-            <div className="right-nav">
-                <ul>
-                    <li>Courses</li>
-                    {/* <li>About</li> */}
-                    <li><Link to='/user'><img src={login} alt="" /></Link></li>
-                </ul>
-            </div>
-        </div>
         </>
     )
 }

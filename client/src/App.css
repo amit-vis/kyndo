@@ -42,11 +42,18 @@ ul {
   list-style: none;
 }
 
-.navbar {
+.brand-name {
+  margin: auto 0;
+  color: var(--turquoise);
+}
+
+.nav {
   color: var(--turquoise);
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: .5rem 1.5rem;
+  font-weight: 500;
 }
 
 .logo {
@@ -60,20 +67,36 @@ ul {
   width: 3rem;
 }
 
-
-.right-nav {
-  display: flex;
-  align-items: center;
+.navbar-nav {
+  align-items: flex-end;
+  justify-content: right;
 }
 
-.right-nav ul {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-weight: 500;
-}
-
-.right-nav img {
-  width: 1.75rem;
+img[alt="login"] {
+  width: 1.5rem;
   margin-left: 1rem;
+}
+
+.nav-item {
+  border-bottom: 2px solid;
+  border-color: transparent;
+}
+
+.nav-link {
+  color: var(--turquoise);
+}
+
+.nav-link:hover {
+  color: var(--turquoise);
+}
+
+.navbar-toggler {
+  color: transparent;
+  border-color: transparent;
+  outline: none;
+}
+
+.navbar-toggler-icon {
+  background: url('./assets/menu.png');
+  background-size: cover;
 }

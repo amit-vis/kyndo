@@ -1,6 +1,16 @@
+import { Link } from 'react-router-dom';
 import logo from '../../assets/kyndo-light.png';
+import { useEffect, useState } from 'react';
 
 const SignInStudent = ()=>{
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        document.title = "Kyndo - Sign In"
+    }, []);
+
     return(
         <>
         <div className="fluid-container sign-container">
@@ -14,16 +24,26 @@ const SignInStudent = ()=>{
                     <div className="sign-form">
                         <div className="username">
                             <p className="t">Email Address</p>
-                            <input type="email" placeholder="Enter your email address" className="input-box"/>
+                            <input type="email"
+                                placeholder="Enter your email address"
+                                className="input-box"
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
                         </div>
                         <div className="password">
                             <p className="t">Password</p>
-                            <input type="password" placeholder="Enter your password" className="input-box"/>
+                            <input type="password"
+                                placeholder="Enter your password"
+                                className="input-box"
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
                         </div>
                     </div>
                     <button className="sign-up-button">Sign in</button>
                     <div className="link">
-                        <a href="">Don't have an account? Sign Up</a>
+                        <Link to='/signup'>Don't have an account? Sign Up</Link>
                     </div>
                     <div className="link link-pass">
                         <a href="">Forgot Password</a>

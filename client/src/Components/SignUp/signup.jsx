@@ -1,7 +1,13 @@
 import './signup.css';
 import logo from '../../assets/kyndo-light.png';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
  const SignUp = ()=>{
+
+    useEffect(() => {
+        document.title = "Kyndo - Sign Up"
+    }, []);
     return(
         <>
         <div className="fluid-container sign-container">
@@ -32,7 +38,7 @@ import logo from '../../assets/kyndo-light.png';
                     </div>
                     <button className="sign-up-button">Sign Up</button>
                     <div className="link">
-                        <a href="">Already got an account? Sign in</a>
+                        <Link to='/signin'>Already got an account? Sign in</Link>
                     </div>
                 </div>
             </div>
