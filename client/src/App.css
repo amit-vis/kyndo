@@ -6,8 +6,6 @@
   --white: #EEE;
   --blue: #0057FF;
   --black: #000;
-  --purple: #7469B6;
-  --pink: #FFE6E6;
   --inter: "Inter", sans-serif;
 }
 
@@ -99,4 +97,21 @@ img[alt="login"] {
 .navbar-toggler-icon {
   background: url('./assets/menu.png');
   background-size: cover;
+}
+
+.learner-btn {
+  width: 100%;
+  margin-top: 2rem;
+  padding: .75rem 1rem;
+  border: 2px solid black;
+  background: var(--dark-blue);
+  color: var(--turquoise);
+  font-family: var(--inter);
+  font-weight: 600;
+  font-size: .95rem;
+}
+
+.learner-btn:hover {
+  background: transparent;
+  color: var(--dark-blue);
 }
