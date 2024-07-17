@@ -1,0 +1,61 @@
+.stuprocontainer{
+    height: 120vh;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.stuproimg{
+    height: 16%;
+    width: 9%;
+    margin-top: 7.5%;
+}
+.stuproheading{
+    margin-top: 1%;
+    font-size: large;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.stuproinfo{
+    height: 40%;
+    width: 35%;
+    margin-top: 3%;
+}
+.tango{
+    height: 18%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+   padding-left: 1.9rem;
+    gap: 3.2rem;
+    font-size: small;
+}
+.nameactual{
+    margin-left: 12%;
+}
+.emailactual{
+    margin-left: 6%;
+}
+.passactual{
+    margin-left: 13%;
+}
+.passnew{
+    background-color: transparent;
+    margin-right: 3.5%;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+}
+.passchangebutton{
+    height: 20%;
+    width: 40%;
+    margin-top: 5%;
+    margin-left: 45%;
+    background-color: transparent;
+    color: white;
+    border: 2px solid #76ABAE;
+}
