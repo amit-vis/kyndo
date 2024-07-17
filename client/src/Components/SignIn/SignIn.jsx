@@ -11,6 +11,14 @@ const SignIn = ()=>{
 
     const newAccount = `/${id}/signup`;
 
+    const handleEmail = (event) => {
+        setEmail(event.target.value);
+    }
+
+    const handlePassword = (event) => {
+        setPassword(event.target.value);
+    }
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,7 +45,7 @@ const SignIn = ()=>{
                             <input type="email"
                                 placeholder="Enter your email address"
                                 className="input-box"
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={handleEmail}
                                 required
                             />
                         </div>
@@ -46,7 +54,7 @@ const SignIn = ()=>{
                             <input type="password"
                                 placeholder="Enter your password"
                                 className="input-box"
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={handlePassword}
                                 required
                             />
                         </div>

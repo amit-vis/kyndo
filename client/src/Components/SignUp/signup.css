@@ -59,6 +59,7 @@
     font-weight: 600;
     font-size: 1.1rem;
     color: var(--black);
+    margin-bottom: 1rem;
 }
 .sign-form {
     width: 100%;

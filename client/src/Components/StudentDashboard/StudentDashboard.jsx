@@ -4,6 +4,8 @@ import thumbnail from '../../assets/thumbnail.png';
 import Footer from "../Footer";
 
 export default function StudentDashboard() {
+
+
     return (
         <>
         <DashboardNavbar />
