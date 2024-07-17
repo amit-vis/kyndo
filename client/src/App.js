@@ -7,6 +7,7 @@ import UserSelection from './Components/User/UserSelection';
 import StudentDashboard from './Components/StudentDashboard/StudentDashboard';
 import Courses from './Components/Courses/courses';
 import StudentProfile from './Components/StudentProfile/stupro';
+import CourseUploaded from './Components/CourseUploaded/courseuploaded';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path='/courses' element={<Courses />} />
           <Route path='/student-dashboard' element={<StudentDashboard />} />
           <Route path='/student-profile' element={<StudentProfile />} />
+          <Route path='/course-uploaded' element={<CourseUploaded />} />
         </Routes>
       </Router>
     </>
