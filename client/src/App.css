@@ -6,6 +6,7 @@
   --white: #EEE;
   --blue: #0057FF;
   --black: #000;
+  --green: #008000;
   --inter: "Inter", sans-serif;
 }
 
@@ -269,6 +270,113 @@ img[alt="login"] {
   margin: auto 0;
 }
 
+.dash-nav {
+  align-items: flex-end;
+  gap: 1.5rem;
+  justify-content: right;
+}
+.dash-nav li {
+  margin: auto 0;
+}
+
+.username {
+  color: var(--white);
+  font-weight: 400;
+  font-size: .9rem;
+}
+
+.signout {
+  background: transparent;
+  padding: .5rem 2rem;
+  color: var(--white);
+  border: 2px solid;
+  border-color: var(--turquoise);
+  font-family: var(--inter);
+  font-size: .9rem;
+}
+
+.signout:hover {
+  background: var(--turquoise);
+  color: var(--dark-blue);
+  font-weight: 500;
+}
+
+.dashboard {
+  padding-top: 7rem;
+  margin-bottom: 5rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  justify-content: space-between;
+}
+
+.welcomeback {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.courses-head {
+  margin-top: 2rem;
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.dashboard-content {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.courses {
+  padding: 1rem;
+  padding-left: 0;
+  overflow: scroll;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.course-card {
+  padding: 1rem;
+  background: var(--white);
+  width: fit-content;
+}
+
+.course {
+  width: fit-content;
+}
+
+.course-card img {
+  width: 20vw;
+}
+
+.course-name, .bar {
+  margin-top: 1rem;
+  font-size: .8rem;
+}
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+}
+
+.percentage {
+  margin: auto 0;
+}
+
+.completed {
+  height: .5rem;
+  width: 90%;
+}
+
+.progress {
+  height: inherit;
+  background: var(--green);
+}
+
+
+
 @media (max-width: 1024px) {
   .section1 .title button {
     font-size: 1rem;
@@ -309,6 +417,35 @@ img[alt="login"] {
     margin: 0 auto;
     text-align: center;
   }
+
+  .courses-head {
+    margin-top: 2rem;
+    font-weight: 500;
+    font-size: 1.25rem;
+  }
+
+  .dashboard-content {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .courses {
+    padding: 1rem;
+    padding-left: 0;
+    overflow: scroll;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .course-card {
+    padding: 1rem;
+    background: var(--white);
+    width: fit-content;
+  }
+
+  .course-card img {
+    width: 30vw;
+  }
 }
 
 @media (max-width: 431px) {
@@ -340,5 +477,13 @@ img[alt="login"] {
   }
   .contact {
     padding-top: 1rem;
+  }
+  .course-card {
+    padding: 1rem;
+    background: var(--white);
+    width: fit-content;
+  }
+  .course-card img {
+    width: 60vw;
   }
 }
