@@ -1,8 +1,20 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/kyndo-light.png';
 
 export default function UserSelection() {
+
+    const navigate = useNavigate();
+
+    const handleTutor = () => {
+        navigate('/tutor/signup')
+    }
+
+    const handleLearner = () => {
+        navigate('/learner/signup')
+    }
+        
+
     return (
         <>
         <div className="fluid-container sign-container">
@@ -13,8 +25,8 @@ export default function UserSelection() {
             <div className="main-form">
                 <div className="signup">
                     <p className='heading'>Who are you?</p>
-                    <button className="sign-up-button">Tutor</button>
-                    <button className="sign-up-button">Learner</button>
+                    <button onClick={handleTutor} className="sign-up-button">Tutor</button>
+                    <button onClick={handleLearner} className="sign-up-button learner-btn">Learner</button>
                 </div>
             </div>
         </div>

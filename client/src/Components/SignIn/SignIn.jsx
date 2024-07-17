@@ -1,11 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import logo from '../../assets/kyndo-light.png';
 import { useEffect, useState } from 'react';
 
-const SignInStudent = ()=>{
+const SignIn = ()=>{
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const { id } = useParams();
+
+    const newAccount = `/${id}/signup`;
 
     useEffect(() => {
         document.title = "Kyndo - Sign In"
@@ -43,7 +47,7 @@ const SignInStudent = ()=>{
                     </div>
                     <button className="sign-up-button">Sign in</button>
                     <div className="link">
-                        <Link to='/signup'>Don't have an account? Sign Up</Link>
+                        <Link to={newAccount}>Don't have an account? Sign Up</Link>
                     </div>
                     <div className="link link-pass">
                         <a href="">Forgot Password</a>
@@ -55,4 +59,4 @@ const SignInStudent = ()=>{
     )
 };
 
-export default SignInStudent;
+export default SignIn;

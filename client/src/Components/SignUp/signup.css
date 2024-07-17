@@ -40,7 +40,8 @@
     align-items: center;
 }
 .signup{
-    width: 30%;
+    width: 30vw;
+    height: fit-content;
     padding: 2rem 3rem;
     border: 1px solid white;
     background-color: white;
@@ -48,16 +49,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     font-family: var(--inter);
 }
 .heading{
     font-weight: 600;
     font-size: 1.1rem;
+    color: var(--black);
 }
-.sign-form{
-    height: 70%;
+.sign-form {
     width: 100%;
-    margin-top: 1rem;
 }
 .input-box{
     width: 100%;
@@ -74,6 +75,7 @@
 .t{
     font-size: .9rem;
     font-weight: 600;
+    color: var(--black);
 }
 .email,.password,.re-password{
     margin-top: 1.5rem;
@@ -82,11 +84,14 @@
     width: 100%;
     margin-top: 2rem;
     padding: .75rem 1rem;
-    border: 2px solid black;
+    text-align: center;
+    color: var(--dark-blue);
+    border: 2px solid #EEE;
     background: transparent;
     font-family: var(--inter);
     font-weight: 600;
     font-size: .95rem;
+    border-color: var(--black);
 }
 .sign-up-button:hover {
     background: var(--dark-blue);
@@ -131,7 +136,7 @@
     }
 }
 
-@media (max-width: 820px) {
+@media (max-width: 854px) {
     .signup {
         width: 55%;
     }

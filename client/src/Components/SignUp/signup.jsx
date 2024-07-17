@@ -1,9 +1,13 @@
 import './signup.css';
 import logo from '../../assets/kyndo-light.png';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import Footer from '../Footer';
 
  const SignUp = ()=>{
+
+    const { id } = useParams();
+    const accountExists = `/${id}/signin`;
 
     useEffect(() => {
         document.title = "Kyndo - Sign Up"
@@ -38,11 +42,12 @@ import { useEffect } from 'react';
                     </div>
                     <button className="sign-up-button">Sign Up</button>
                     <div className="link">
-                        <Link to='/signin'>Already got an account? Sign in</Link>
+                        <Link to={accountExists}>Already got an account? Sign in</Link>
                     </div>
                 </div>
             </div>
         </div>
+        <Footer />
         </>
     )
 };
