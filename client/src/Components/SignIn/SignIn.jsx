@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import logo from '../../assets/kyndo-light.png';
 import { useEffect, useState } from 'react';
 
@@ -11,14 +11,20 @@ const SignIn = ()=>{
 
     const newAccount = `/${id}/signup`;
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         document.title = "Kyndo - Sign In"
     }, []);
 
+    const goToHomePage = () => {
+        navigate('/')
+    }
+
     return(
         <>
         <div className="fluid-container sign-container">
-            <div className="logo-div">
+            <div className="logo-div" onClick={goToHomePage}>
                 <img src={logo} alt="" className="logo" />
                 <div className="kyndo">Kyndo</div>
             </div>

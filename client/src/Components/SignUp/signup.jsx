@@ -1,6 +1,6 @@
 import './signup.css';
 import logo from '../../assets/kyndo-light.png';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Footer from '../Footer';
 
@@ -9,13 +9,20 @@ import Footer from '../Footer';
     const { id } = useParams();
     const accountExists = `/${id}/signin`;
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         document.title = "Kyndo - Sign Up"
     }, []);
+
+    const goToHomePage = () => {
+        navigate('/')
+    }
+
     return(
         <>
         <div className="fluid-container sign-container">
-            <div className="logo-div">
+            <div className="logo-div" onClick={goToHomePage}>
                 <img src={logo} alt="" className="logo" />
                 <div className="kyndo">Kyndo</div>
             </div>
@@ -47,7 +54,6 @@ import Footer from '../Footer';
                 </div>
             </div>
         </div>
-        <Footer />
         </>
     )
 };

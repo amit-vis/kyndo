@@ -25,6 +25,9 @@
     align-items: center;
     gap: 1rem;
 }
+.logo-div:hover{
+    cursor: pointer;
+}
 .logo{
     width: 4rem;
 }

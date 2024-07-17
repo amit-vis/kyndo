@@ -144,10 +144,17 @@ img[alt="login"] {
   width: 40%;
   font-size: 1.25rem;
   padding: .65rem 1rem;
+  font-weight: 500;
   background: transparent;
   border: 2px solid;
   border-color: var(--turquoise);
   color: var(--white);
+}
+
+.section1 .title button:hover {
+  background: var(--turquoise);
+  color: var(--dark-blue);
+  cursor: pointer;
 }
 
 .section1 .title span {
