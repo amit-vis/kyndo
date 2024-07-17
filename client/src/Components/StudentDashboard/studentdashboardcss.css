@@ -1,9 +1,6 @@
-*{
-    height: 100vh;
-    border: border-box;
-    margin: 0%;
-}
+
 .DashContainer{
-    height: 100%;
+    height: 100vh;
     width:100%;
+    border: 1px solid white;
 }

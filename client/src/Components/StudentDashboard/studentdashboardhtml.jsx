@@ -5,7 +5,6 @@ const StudentDashboard = ()=>{
     return(
         <>
         <div className="DashContainer">
-            <Navbar/>
         </div>
         </>
     )
