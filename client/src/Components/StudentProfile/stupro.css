@@ -1,0 +1,82 @@
+.stuprocontainer{
+    padding: 7rem 2rem;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.stuproimg{
+    width: 8rem;
+}
+.stuproheading{
+    margin-top: 2rem;
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+.stuproinfo{
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 30%;
+}
+.tango{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+.tango .subtitle {
+    width: 50%;
+}
+.tango .subtitle-content {
+    font-size: 1rem;
+    width: 100%;
+}
+.tango input[type="password"] {
+    opacity: 1;
+    background: transparent;
+    padding: .5rem;
+    padding-left: 0;
+    border: none;
+    border-bottom: 1px solid;
+    border-bottom-color: #76ABAE;
+    outline: none;
+    color: #EEE;
+}
+.pass-change{
+    width: fit-content;
+    margin: 1rem 0 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .stuproinfo {
+        margin-top: 3rem;
+        transform: scale(1.2);
+        width: 70%;
+    }
+}
+
+@media (max-width: 913px) {
+    .stuproinfo {
+        width: 60%;
+    }
+}
+
+@media (max-width: 820px) {
+    .stuproinfo {
+        width: 60%;
+    }
+    .pass-change {
+        width: 100%;
+    }
+}
+
+@media (max-width: 540px) {
+    .stuproinfo {
+        width: 80%;
+    }
+    .pass-change {
+        width: 100%;
+    }
+}

@@ -104,6 +104,7 @@ img[alt="login"] {
 
 .nav-link {
   color: var(--turquoise);
+  cursor: pointer;
 }
 
 .nav-link:hover {

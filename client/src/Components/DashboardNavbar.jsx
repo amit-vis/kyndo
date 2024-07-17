@@ -1,13 +1,16 @@
 import React from "react";
 import user from '../assets/user.png';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import logo from '../assets/kyndo-light.png';
 
-export default function DashboardNavbar() {
+export default function DashboardNavbar(props) {
     
-    const { id } = useParams();
+    const navigate = useNavigate();
 
-    const userProfile = `/${id}-profile`;
+    const loadProfile = () => {
+        const userProfile = `/${props.user}-profile`;
+        navigate(userProfile);
+    }
 
     return (
     <>
@@ -32,13 +35,13 @@ export default function DashboardNavbar() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto dash-nav">
                         <li className="nav-item">
-                        <Link to='/user' className="nav-link"><button className="signout">Sign out</button></Link>
+                        <li to='/user' className="nav-link"><button className="signout">Sign out</button></li>
                         </li>
                         <li className="nav-item">
-                        <Link to={userProfile} className="nav-link username">Username</Link>
+                        <li onClick={loadProfile} className="nav-link username">Username</li>
                         </li>
                         <li className="nav-item">
-                        <Link to={userProfile} className="nav-link"><img src={user} alt="login" /></Link>
+                        <li onClick={loadProfile} className="nav-link"><img src={user} alt="login" /></li>
                         </li>
                     </ul>
                 </div>

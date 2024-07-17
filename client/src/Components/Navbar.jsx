@@ -27,7 +27,7 @@ export default function Navbar() {
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                        <Link to='/user' className="nav-link">Courses</Link>
+                        <Link to='/courses' className="nav-link">Courses</Link>
                         </li>
                         <li class="nav-item">
                         <Link to='/user' className="nav-link"><img src={login} alt="login" /></Link>

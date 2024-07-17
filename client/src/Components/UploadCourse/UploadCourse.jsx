@@ -35,14 +35,14 @@ export default function UploadCourse() {
     }
 
     const proceedUpload = () => {
-
+        navigate('/course-uploaded');
     }
 
 
 
     return (
         <>
-        <DashboardNavbar />
+        <DashboardNavbar user="tutor" />
         <div className="manage-course">
             <div className="courses-head">Upload a new course</div>
             <div className="row upload-form">

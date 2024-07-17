@@ -1,0 +1,28 @@
+.DashContainer{
+    padding: 5rem 2rem;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.DashContainer .courses-head {
+    margin-bottom: 2rem;
+}
+.DashContainer .row {
+    margin-bottom: 1rem;
+}
+.DashContainer .course-name {
+    margin-bottom: 1rem;
+}
+.DashContainer .col-sm-12 {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 540px) {
+    .course-card img {
+        width: 50vw;
+    }
+}

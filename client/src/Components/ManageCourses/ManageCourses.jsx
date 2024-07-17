@@ -18,7 +18,7 @@ export default function ManageCourses() {
 
     return(
         <>
-        <DashboardNavbar />
+        <DashboardNavbar user="tutor" />
         <div className="manage-course">
             <div className="courses-head">Zidio UI/UX Training Session</div>
             <div className="course-thumbnail">

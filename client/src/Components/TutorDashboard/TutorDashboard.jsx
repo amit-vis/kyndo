@@ -18,7 +18,7 @@ export default function TutorDashboard() {
 
     return (
         <>
-        <DashboardNavbar />
+        <DashboardNavbar user="tutor" />
         <div className="dashboard">
             <div className="dashboard-content">
                 <p className="welcomeback">

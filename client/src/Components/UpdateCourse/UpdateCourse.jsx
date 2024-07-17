@@ -42,7 +42,7 @@ export default function UpdateCourse() {
 
     return (
         <>
-        <DashboardNavbar />
+        <DashboardNavbar user="tutor" />
         <div className="manage-course">
             {/* pull the course name */}
             <div className="courses-head">Update course, <span>Zidio UI/UX Training Session</span></div>
