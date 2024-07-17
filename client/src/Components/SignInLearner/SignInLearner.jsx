@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/kyndo-light.png';
 import { useEffect, useState } from 'react';
 
+
 const SignInStudent = ()=>{
 
     const [email, setEmail] = useState('');

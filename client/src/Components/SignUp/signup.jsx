@@ -2,6 +2,7 @@ import './signup.css';
 import logo from '../../assets/kyndo-light.png';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import FooterFunc from '../FooterElement/FooterHtml';
 
  const SignUp = ()=>{
 
@@ -43,6 +44,7 @@ import { useEffect } from 'react';
                 </div>
             </div>
         </div>
+        <FooterFunc/>
         </>
     )
 };
