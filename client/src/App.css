@@ -17,6 +17,10 @@
   box-sizing: border-box;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 html {
   margin: 0;
   padding: 0;
@@ -32,12 +36,23 @@ body {
   width: inherit;
   height: inherit;
   background: var(--dark-blue);
-  color: #000;
+  color: var(--white);
   font-family: var(--inter);
+}
+
+a {
+  text-decoration: none;
 }
 
 ul {
   list-style: none;
+}
+
+.navbar-expand-lg {
+  position: fixed;
+  width: 100%;
+  background: var(--dark-blue);
+  z-index: 99;
 }
 
 .brand-name {
@@ -100,18 +115,230 @@ img[alt="login"] {
 }
 
 .learner-btn {
-  width: 100%;
-  margin-top: 2rem;
-  padding: .75rem 1rem;
-  border: 2px solid black;
-  background: var(--dark-blue);
-  color: var(--turquoise);
-  font-family: var(--inter);
-  font-weight: 600;
-  font-size: .95rem;
+  margin-bottom: 1rem;
 }
 
 .learner-btn:hover {
   background: transparent;
   color: var(--dark-blue);
+}
+
+.section1{
+  padding: 2rem;
+  padding-top: 6rem;
+  font-size: 3rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.section1 .title {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.section1 .title button {
+  width: 40%;
+  font-size: 1.25rem;
+  padding: .65rem 1rem;
+  font-weight: 500;
+  background: transparent;
+  border: 2px solid;
+  border-color: var(--turquoise);
+  color: var(--white);
+}
+
+.section1 .title button:hover {
+  background: var(--turquoise);
+  color: var(--dark-blue);
+  cursor: pointer;
+}
+
+.section1 .title span {
+  font-weight: 500;
+}
+
+.section-images {
+  width: 60%;
+  display: flex;
+  justify-content: right;
+}
+
+.section2 {
+  width: 100%;
+  background: var(--white);
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.section2 p {
+  color: var(--black);
+  font-size: 3rem;
+  width: 40%;
+  text-align: right;
+}
+
+.section2 p span {
+  font-weight: 500;
+}
+
+.section2 img {
+  width: 45%;
+}
+
+.section3 {
+  width: 100%;
+  height: 100vh;
+  padding: 5rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 3.5rem;
+  font-weight: normal;
+  text-align: center;
+  color: var(--white);
+}
+
+.section3 p {
+  width: 40%;
+}
+
+.section3 p span {
+  font-weight: 500;
+}
+
+.img-group1 {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  height: 90%;
+  justify-content: space-between;
+}
+
+.bigimg {
+  width: 15rem;
+  align-self: flex-end;
+}
+
+.smallimg {
+  width: 10rem;
+}
+
+.brand-name-footer {
+  color: var(--dark-blue);
+}
+
+.footer {
+  color: var(--dark-blue);
+  background: var(--turquoise);
+}
+
+.footer-content {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.motto {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  width: 40%;
+}
+
+.copyright {
+  padding: 2rem;
+  display: flex;
+  font-weight: 600;
+  gap: 1rem;
+  align-items: center;
+}
+
+.copyright img {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.copyright p {
+  margin: auto 0;
+}
+
+@media (max-width: 1024px) {
+  .section1 .title button {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 912px) {
+  .section-images {
+    display: none;
+  }
+  .section1 {
+    height: 100vh;
+  }
+  .section1 .title {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transform: scale(1.5);
+  }
+  .section2 img {
+    display: none;
+  }
+  .section2 {
+    height: 100vh;
+  }
+  .section2 p {
+    text-align: center;
+    transform: scale(1.5);
+    margin: 0 auto;
+  }
+  .img-group1 {
+    display: none;
+  }
+  .section3 p {
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+@media (max-width: 431px) {
+  .section1 .title {
+    width: 90%;
+    transform: scale(1.2);
+  }
+  .section2 {
+    height: 100vh;
+  }
+  .section2 p {
+    text-align: center;
+    width: 90%;
+    transform: scale(1.2);
+    margin: 0 auto;
+  }
+  .img-group1 {
+    display: none;
+  }
+  .section3 p {
+    margin: 0 auto;
+    width: 90%;
+  }
+  .footer-content {
+    display: block;
+  }
+  .motto {
+    width: 100%;
+  }
+  .contact {
+    padding-top: 1rem;
+  }
 }
