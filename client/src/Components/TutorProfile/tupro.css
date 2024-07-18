@@ -1,0 +1,76 @@
+.tuprocontainer{
+    height: 120vh;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tuproimg{
+    height: 17.5%;
+    width: 9.5%;
+    margin-top: 9%;
+}
+.tuproheading{
+    margin-top: 2.5%;
+    font-size: large;
+    font-weight: 500;
+}
+.tuproinfo{
+    height: 50%;
+    width: 90%;
+    margin-top: 4%;
+    display: flex;
+    gap: 0rem;
+}
+.tuproinfoleft,.tuproinforight{
+
+    width: 35%;
+    margin-left: 11%;
+}
+.kol{
+    height: 20%;
+
+    display: flex;
+    margin-left: 10%;
+    gap: 2rem;
+    align-items: center;
+}
+.tuprochangepassbutton{
+    background-color: transparent;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom: 1.5px solid white;
+}
+.tuproactualname{
+    margin-left: 17%;
+}
+.tuproactualemail{
+    margin-left: 9%;
+}
+.tuproactualpass{
+    margin-left: 18%;
+}
+.tuprochangepassbutton{
+    width: 50%;
+    margin-left: 1%;
+}
+.changepassbutt{
+    background-color: transparent;
+    width: 55%;
+    border: 2px solid #76ABAE;
+    height: 15%;
+    margin-left: 47%;
+    margin-top: 2%;
+    color: white;
+}
+.del{
+    height: 20%;
+    width: 100%;
+    margin-top: 5%;
+    display: flex;
+    gap: 5rem;
+}
+.tuproactualcourse{
+    margin-left: 18%;
+}

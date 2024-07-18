@@ -12,6 +12,7 @@ import UpdateCourse from './Components/UpdateCourse/UpdateCourse';
 import Courses from './Components/Courses/courses';
 import StudentProfile from './Components/StudentProfile/stupro';
 import CourseUploaded from './Components/CourseUploaded/courseuploaded';
+import TutorProfile from './Components/TutorProfile/tupro';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path='/update-course' element={<UpdateCourse />} />
           <Route path='/student-profile' element={<StudentProfile />} />
           <Route path='/course-uploaded' element={<CourseUploaded />} />
+          <Route path='/tutor-profile' element={<TutorProfile />} />
         </Routes>
       </Router>
     </>
