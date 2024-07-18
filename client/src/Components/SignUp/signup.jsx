@@ -34,6 +34,10 @@ import Footer from '../Footer';
         navigate('/')
     }
 
+    const loadDashboard = () => {
+        navigate(`/${id}-dashboard`)
+    }
+
     return(
         <>
         <div className="fluid-container sign-container">
@@ -65,7 +69,10 @@ import Footer from '../Footer';
                             <input type="password" placeholder="Re-enter your password to confirm" className="input-box"/>
                         </div>
                     </div>
-                    <button className="sign-up-button">Sign Up</button>
+                    <button className="sign-up-button"
+                        onClick={loadDashboard}>
+                            Sign Up
+                        </button>
                     <div className="link">
                         <Link to={accountExists}>Already got an account? Sign in</Link>
                     </div>

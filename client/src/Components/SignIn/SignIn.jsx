@@ -29,6 +29,10 @@ const SignIn = ()=>{
         navigate('/')
     }
 
+    const loadDashboard = () => {
+        navigate(`/${id}-dashboard`)
+    }
+
     return(
         <>
         <div className="fluid-container sign-container">
@@ -59,7 +63,10 @@ const SignIn = ()=>{
                             />
                         </div>
                     </div>
-                    <button className="sign-up-button">Sign in</button>
+                    <button className="sign-up-button"
+                        onClick={loadDashboard}>
+                            Sign in
+                        </button>
                     <div className="link">
                         <Link to={newAccount}>Don't have an account? Sign Up</Link>
                     </div>
