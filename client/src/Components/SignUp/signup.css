@@ -41,7 +41,7 @@
 }
 .signup{
     width: 30%;
-    height: 75%;
+    height: 85%;
     padding: 2rem 3rem;
     border: 1px solid white;
     background-color: white;
@@ -81,7 +81,7 @@
 }
 .sign-up-button{
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding: 1rem;
     border: 2px solid black;
     background: transparent;
