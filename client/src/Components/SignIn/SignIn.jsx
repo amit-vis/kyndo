@@ -1,11 +1,18 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import logo from '../../assets/kyndo-light.png';
 import { useEffect, useState } from 'react';
+import { Notification } from '../Notification';
+import { useDispatch } from 'react-redux';
+import { signuser } from '../../redux/reducer/formReducer';
 
 const SignIn = ()=>{
-
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = useState("");
+    const [isError, setIsError] = useState(false);
 
     const { id } = useParams();
 
@@ -29,6 +36,38 @@ const SignIn = ()=>{
         navigate('/')
     }
 
+    const handleSignin = async ()=>{
+        try {
+            const user = {email, password};
+            const result = await dispatch(signuser(user));
+            if(signuser.fulfilled.match(result)){
+                setEmail('');
+                setPassword('');
+                setShowModal(true);
+                setMessage("you have logged in successfully!");
+                console.log("here is the result", result);
+                setIsError(false);
+                setTimeout(()=>{
+                    setShowModal(false)
+                    loadDashboard()
+                },3000)
+            }else{
+                setShowModal(true);
+                setIsError(true);
+                setMessage(result.payload.message);
+                setTimeout(()=>{
+                    setShowModal(false);
+                },3000)
+            }
+        } catch (error) {
+            console.error("Error during registration:", error.message);
+            setShowModal(true);
+            setMessage(error.message);
+            setIsError(true);
+            setTimeout(() => { setShowModal(false); }, 3000);
+        }
+    }
+
     const loadDashboard = () => {
         navigate(`/${id}-dashboard`)
     }
@@ -49,6 +88,7 @@ const SignIn = ()=>{
                             <input type="email"
                                 placeholder="Enter your email address"
                                 className="input-box"
+                                value={email}
                                 onChange={handleEmail}
                                 required
                             />
@@ -58,13 +98,14 @@ const SignIn = ()=>{
                             <input type="password"
                                 placeholder="Enter your password"
                                 className="input-box"
+                                value={password}
                                 onChange={handlePassword}
                                 required
                             />
                         </div>
                     </div>
                     <button className="sign-up-button"
-                        onClick={loadDashboard}>
+                        onClick={handleSignin}>
                             Sign in
                         </button>
                     <div className="link">
@@ -76,6 +117,11 @@ const SignIn = ()=>{
                 </div>
             </div>
         </div>
+        <Notification show={showModal} 
+        onHide={()=>setShowModal(false)}
+        message={message}
+        isError={isError}
+        />
         </>
     )
 };

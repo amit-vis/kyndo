@@ -18,23 +18,12 @@ const SignUp = () => {
 
     const [showModal, setShowModal] = useState(false);
     const [message, setMessage] = useState("");
-    const [isError, setIsError] = useState(false)
+    const [isError, setIsError] = useState(false);
 
-    const handleUsername = (event) => {
-        setUsername(event.target.value);
-    }
-
-    const handleEmail = (event) => {
-        setEmail(event.target.value);
-    }
-
-    const handlePassword = (event) => {
-        setPassword(event.target.value);
-    }
-    
-    const handleCPassword = (event) => {
-        setCPassword(event.target.value);
-    }
+    const handleUsername = (event) => setUsername(event.target.value);
+    const handleEmail = (event) => setEmail(event.target.value);
+    const handlePassword = (event) => setPassword(event.target.value);
+    const handleCPassword = (event) => setCPassword(event.target.value);
 
     const handleSubmit = async () => {
         try {
@@ -43,29 +32,29 @@ const SignUp = () => {
             if (createUser.fulfilled.match(result)) {
                 setShowModal(true);
                 setMessage("You have registered successfully!");
-                setIsError(false)
+                setIsError(false);
                 setUsername('');
                 setCPassword('');
-                setPassword("");
-                setEmail("")
-                setTimeout(()=>{
+                setPassword('');
+                setEmail('');
+                setTimeout(() => {
                     setShowModal(false);
-                    navigate(`/${id}/signin`);
-                },3000);
+                    navigate(accountExists);
+                }, 3000);
             } else {
                 setShowModal(true);
                 setMessage(result.payload.message);
-                setIsError(true)
-                setTimeout(()=>{setShowModal(false)},3000);
+                setIsError(true);
+                setTimeout(() => { setShowModal(false); }, 3000);
             }
         } catch (error) {
             console.error("Error during registration:", error.message);
             setShowModal(true);
-            setMessage(error.message)
+            setMessage(error.message);
             setIsError(true);
-            setTimeout(()=>{setShowModal(false)},3000);
+            setTimeout(() => { setShowModal(false); }, 3000);
         }
-    }
+    };
 
     const navigate = useNavigate();
 
@@ -76,13 +65,13 @@ const SignUp = () => {
 
     const goToHomePage = () => {
         navigate('/');
-    }
+    };
 
     const loadDashboard = () => {
-        navigate(`/${id}-dashboard`)
-    }
+        navigate(`/${id}-dashboard`);
+    };
 
-    return(
+    return (
         <>
             <div className="fluid-container sign-container">
                 <div className="logo-div" onClick={goToHomePage}>
@@ -122,31 +111,16 @@ const SignUp = () => {
                         <div className="link">
                             <Link to={accountExists}>Already got an account? Sign in</Link>
                         </div>
-                        <div className="password">
-                            <p className="t">Password</p>
-                            <input type="password" placeholder="Enter your password" className="input-box"
-                            onChange={handlePassword}/>
-                        </div>
-                        <div className="re-password">
-                            <p className="t">Confirm Password</p>
-                            <input type="password" placeholder="Re-enter your password to confirm" className="input-box"/>
-                        </div>
-                    </div>
-                    <button className="sign-up-button"
-                        onClick={loadDashboard}>
-                            Sign Up
-                        </button>
-                    <div className="link">
-                        <Link to={accountExists}>Already got an account? Sign in</Link>
                     </div>
                 </div>
             </div>
             <Notification show={showModal} 
-            message={message}
-            onHide={()=>setShowModal(false)}
-            isError={isError}/>
+                message={message}
+                onHide={() => setShowModal(false)}
+                isError={isError}/>
         </>
     );
 };
 
 export default SignUp;
+

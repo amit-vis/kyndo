@@ -3,7 +3,8 @@ const cors = require("cors");
 const express = require("express");
 const app = express();
 const port = 8000;
-require("./config/database")
+require("./config/database");
+require("./config/passport-jwt");
 
 app.use(cors())
 app.use(express.json());
