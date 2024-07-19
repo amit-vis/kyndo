@@ -4,6 +4,12 @@ const bcrypt = require("bcrypt");
 module.exports.create = async (req, res)=>{
     try {
         const {name, email,password, cpassword, isTutor} = req.body;
+        if(name === "" || email === "" || password === "" || cpassword === ""){
+            return res.status(403).json({
+                message: "Input section should not be empty!",
+                success: false
+            }) 
+        }
         if(password !== cpassword){
             return res.status(400).json({
                 message: "password  does not match with confirm password!",
@@ -19,7 +25,7 @@ module.exports.create = async (req, res)=>{
         }
         let user = await User.findOne({email: email});
         if(user){
-            return res.status(401).json({
+            return res.status(402).json({
                 message:"User already exist!",
                 success: false
             })

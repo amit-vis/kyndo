@@ -13,10 +13,13 @@ import Courses from './Components/Courses/courses';
 import StudentProfile from './Components/StudentProfile/stupro';
 import CourseUploaded from './Components/CourseUploaded/courseuploaded';
 import TutorProfile from './Components/TutorProfile/tupro';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 function App() {
   return (
     <>
+    <Provider store={store}>
       <Router>
         <Routes>
           <Route path='/' element={<Homepage />} />
@@ -34,6 +37,7 @@ function App() {
           <Route path='/tutor-profile' element={<TutorProfile />} />
         </Routes>
       </Router>
+      </Provider>
     </>
   );
 }

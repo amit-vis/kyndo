@@ -1,9 +1,11 @@
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const express = require("express");
 const app = express();
 const port = 8000;
 require("./config/database")
 
+app.use(cors())
 app.use(express.json());
 app.use(bodyParser.json());
 
