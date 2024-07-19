@@ -78,7 +78,11 @@ const SignUp = () => {
         navigate('/');
     }
 
-    return (
+    const loadDashboard = () => {
+        navigate(`/${id}-dashboard`)
+    }
+
+    return(
         <>
             <div className="fluid-container sign-container">
                 <div className="logo-div" onClick={goToHomePage}>
@@ -118,6 +122,22 @@ const SignUp = () => {
                         <div className="link">
                             <Link to={accountExists}>Already got an account? Sign in</Link>
                         </div>
+                        <div className="password">
+                            <p className="t">Password</p>
+                            <input type="password" placeholder="Enter your password" className="input-box"
+                            onChange={handlePassword}/>
+                        </div>
+                        <div className="re-password">
+                            <p className="t">Confirm Password</p>
+                            <input type="password" placeholder="Re-enter your password to confirm" className="input-box"/>
+                        </div>
+                    </div>
+                    <button className="sign-up-button"
+                        onClick={loadDashboard}>
+                            Sign Up
+                        </button>
+                    <div className="link">
+                        <Link to={accountExists}>Already got an account? Sign in</Link>
                     </div>
                 </div>
             </div>

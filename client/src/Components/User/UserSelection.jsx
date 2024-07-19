@@ -10,8 +10,8 @@ export default function UserSelection() {
         navigate('/tutor/signup')
     }
 
-    const handleLearner = () => {
-        navigate('/learner/signup')
+    const handleStudent = () => {
+        navigate('/student/signup')
     }
         
 
@@ -26,7 +26,7 @@ export default function UserSelection() {
                 <div className="signup">
                     <p className='heading'>Who are you?</p>
                     <button onClick={handleTutor} className="sign-up-button">Tutor</button>
-                    <button onClick={handleLearner} className="sign-up-button learner-btn">Learner</button>
+                    <button onClick={handleStudent} className="sign-up-button learner-btn">Student</button>
                 </div>
             </div>
         </div>
