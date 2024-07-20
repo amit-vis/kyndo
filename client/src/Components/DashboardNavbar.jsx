@@ -17,7 +17,7 @@ export default function DashboardNavbar(props) {
     <nav className="navbar navbar-expand-lg">
             <div className="container-fluid nav">
                 <div className="nav-left">
-                    <Link to='/' style={{
+                    <Link to={`/${props.user}-dashboard`} style={{
                         textDecoration: 'none',
                         color: 'inherit',
                         display: 'flex',

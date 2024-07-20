@@ -13,7 +13,7 @@ export default function ManageCourses() {
     }
 
     const deleteCourse = () => {
-        
+        navigate('/tutor-dashboard')
     }
 
     return(
