@@ -1,4 +1,4 @@
-const User = require("../model/resgister");
+const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { publishToQueue } = require("../config/rabbitMq");
@@ -118,8 +118,23 @@ module.exports.getDetails = async (req, res) => {
 
 module.exports.logout = async (req, res) => {
     try {
-        const token = req.headers.authorization.split(" ")[1];
-        await publishToQueue("invalidatedTokens", token);
+        const authHeader = req.headers.authorization;
+        if (!authHeader) {
+            return res.status(401).json({
+                message: "Authorization header is missing",
+                success: false
+            });
+        }
+
+        const token = authHeader.split(" ")[1]; // Extract the token after 'Bearer'
+        if (!token) {
+            return res.status(401).json({
+                message: "Token is missing in the Authorization header",
+                success: false
+            });
+        }
+
+        await publishToQueue("invalidatedTokens", token); // Invalidate the token
         return res.status(200).json({
             message: "Logged out successfully"
         });
@@ -127,3 +142,5 @@ module.exports.logout = async (req, res) => {
         return res.status(500).json({ message: "Error logging out", error });
     }
 };
+
+

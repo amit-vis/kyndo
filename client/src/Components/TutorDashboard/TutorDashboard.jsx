@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DashboardNavbar from "../DashboardNavbar";
 import thumbnail from '../../assets/thumbnail.png';
 import Footer from "../Footer";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, userSelector } from "../../redux/reducer/formReducer";
 
 export default function TutorDashboard() {
+
+    const dispatch = useDispatch();
+    const {userData, state, error} = useSelector(userSelector);
+
+    useEffect(()=>{
+        dispatch(getUser(true))
+    },[])
 
     const navigate = useNavigate();
 
@@ -22,7 +31,7 @@ export default function TutorDashboard() {
         <div className="dashboard">
             <div className="dashboard-content">
                 <p className="welcomeback">
-                    Welcome back, username!
+                    Welcome back, {userData?.name}!
                 </p>
                 <p className="courses-head">Uploaded Courses</p>
                 <div className="courses">

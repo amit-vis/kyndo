@@ -1,13 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import user from '../assets/user.png';
 import {Link, useNavigate} from 'react-router-dom';
 import logo from '../assets/kyndo-light.png';
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, userSelector } from "../redux/reducer/formReducer";
+import { getUser, logoutUser, userSelector } from "../redux/reducer/formReducer";
+import { Notification } from "./Notification";
 
 export default function DashboardNavbar(props) {
     const dispatch = useDispatch();
-    const userdata = useSelector(userSelector);
+    const {userData, state, error} = useSelector(userSelector);
+    const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = useState("");
+    const [isError, setIsError] = useState(false);
+
     let dataroute = null
     if(props.user === "tutor"){
         dataroute = true
@@ -15,16 +20,43 @@ export default function DashboardNavbar(props) {
         dataroute = false
     }
     
-
-    useEffect(()=>{
-        dispatch(getUser(dataroute))
-    },[])
-    
     const navigate = useNavigate();
 
     const loadProfile = () => {
         const userProfile = `/${props.user}-profile`;
         navigate(userProfile);
+    }
+    useEffect(() => {
+            dispatch(getUser(dataroute));
+    }, [dispatch, navigate, dataroute]);
+
+    const signoutUser = async ()=>{
+        try {
+            const result = await dispatch(logoutUser());
+            if(logoutUser.fulfilled.match(result)){
+                setShowModal(true)
+                setIsError(false)
+                setMessage(result.payload.message)
+                localStorage.removeItem("token")
+                setTimeout(()=>{
+                    setShowModal(false)
+                    navigate(`/${props.user}/signin`)
+                },3000)
+            }else{
+                setIsError(true)
+                setMessage(result.payload.message)
+                setShowModal(true)
+                setTimeout(()=>{setShowModal(false)},3000)
+                console.log("here is the error message",result)
+            }
+            
+        } catch (error) {
+            setIsError(true)
+            setMessage(error.message)
+            setShowModal(true)
+            setTimeout(()=>{setShowModal(false)},3000)
+            console.log("here is the error message",error)
+        }
     }
 
     return (
@@ -50,10 +82,10 @@ export default function DashboardNavbar(props) {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto dash-nav">
                         <li className="nav-item">
-                        <li to='/user' className="nav-link"><button className="signout">Sign out</button></li>
+                        <li to='/user' className="nav-link"><button className="signout" onClick={signoutUser}>Sign out</button></li>
                         </li>
                         <li className="nav-item">
-                        <li onClick={loadProfile} className="nav-link username">{userdata?.name}</li>
+                        <li onClick={loadProfile} className="nav-link username">{userData?.name}</li>
                         </li>
                         <li className="nav-item">
                         <li onClick={loadProfile} className="nav-link"><img src={user} alt="login" /></li>
@@ -62,6 +94,10 @@ export default function DashboardNavbar(props) {
                 </div>
             </div>
         </nav>
+        <Notification show={showModal}
+        message={message}
+        onHide={()=>setShowModal(false)}
+        isError={isError}/>
     </>
     )
 }

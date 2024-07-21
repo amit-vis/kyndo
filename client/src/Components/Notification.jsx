@@ -20,7 +20,7 @@ export const Notification = ({show, message, onHide,isError}) => {
       <Modal.Body className="text-center">
         {isError?<MdCancel style={{fontSize:"5rem"}} className="text-danger"/>:
         <SiTicktick style={{fontSize:"5rem"}} className="text-success"/>}
-        <p>
+        <p className="text-secondary">
           {message}
         </p>
       </Modal.Body>
