@@ -31,7 +31,7 @@ const SignUp = () => {
             const result = await dispatch(createUser(user));
             if (createUser.fulfilled.match(result)) {
                 setShowModal(true);
-                setMessage("You have registered successfully!");
+                setMessage(result.payload.message);
                 setIsError(false);
                 setUsername('');
                 setCPassword('');

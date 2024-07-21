@@ -7,7 +7,7 @@ export const createUser = createAsyncThunk("user/register", async (user, { rejec
         const response = await axios.post("http://localhost:8000/user/create", 
             { name, email, password, cpassword, isTutor });
         if (response.status === 200) {
-            const data = response.data.user;
+            const data = response.data;
             return data;
         } else {
             const errorData = response.data;
@@ -24,9 +24,9 @@ export const createUser = createAsyncThunk("user/register", async (user, { rejec
 
 export const signuser = createAsyncThunk("user/signin", async (user, {rejectWithValue})=>{
     try {
-        const {email, password} = user;
+        const {email, password, isTutor} = user;
         const response = await axios.post("http://localhost:8000/user/signin",
-            {email, password})
+            {email, password, isTutor})
         if(response.status === 200){
             const data = response.data;
             return data
@@ -41,11 +41,33 @@ export const signuser = createAsyncThunk("user/signin", async (user, {rejectWith
             return rejectWithValue(error.message);
         }
     }
+});
+
+export const getUser = createAsyncThunk("user/details", async (isTutor,{rejectWithValue})=>{
+    try {
+        const token = localStorage.getItem("token")
+        const endpoint = isTutor ? "/view-tutor":"/view-user"
+        const response = await axios.get(`http://localhost:8000/user/${endpoint}`,{
+            headers:{
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        if(response.status === 200){
+            const data = response.data
+            return data
+        }else{
+            const errorData = response.data
+            return rejectWithValue(errorData)
+        }
+    } catch (error) {
+        return rejectWithValue(error.message)
+    }
 })
 
 const initialState = {
     status: "idle",
-    userData: [],
+    userData: null,
+    user: [],
     error: null
 };
 
@@ -59,7 +81,7 @@ const userSlice = createSlice({
         })
             .addCase(createUser.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                state.userData.push(action.payload);
+                state.user.push(action.payload)
                 state.error = null;
             })
             .addCase(createUser.rejected, (state, action) => {
@@ -71,9 +93,20 @@ const userSlice = createSlice({
             })
             .addCase(signuser.fulfilled, (state, action)=>{
                 state.status = "succeeded"
-                state.userData.push(action.payload)
+                localStorage.setItem("token", action.payload.token)
             })
             .addCase(signuser.rejected, (state, action)=>{
+                state.status = "Failed"
+                state.error = action.payload
+            })
+            .addCase(getUser.pending, (state)=>{
+                state.status = "Pending"
+            })
+            .addCase(getUser.fulfilled, (state, action)=>{
+                state.status = "succeeded"
+                state.userData = action.payload.user
+            })
+            .addCase(getUser.rejected, (state, action)=>{
                 state.status = "Failed"
                 state.error = action.payload
             })

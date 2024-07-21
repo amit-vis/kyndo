@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import user from '../assets/user.png';
 import {Link, useNavigate} from 'react-router-dom';
 import logo from '../assets/kyndo-light.png';
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, userSelector } from "../redux/reducer/formReducer";
 
 export default function DashboardNavbar(props) {
+    const dispatch = useDispatch();
+    const userdata = useSelector(userSelector);
+    let dataroute = null
+    if(props.user === "tutor"){
+        dataroute = true
+    }else{
+        dataroute = false
+    }
+    
+
+    useEffect(()=>{
+        dispatch(getUser(dataroute))
+    },[])
     
     const navigate = useNavigate();
 
@@ -38,7 +53,7 @@ export default function DashboardNavbar(props) {
                         <li to='/user' className="nav-link"><button className="signout">Sign out</button></li>
                         </li>
                         <li className="nav-item">
-                        <li onClick={loadProfile} className="nav-link username">Username</li>
+                        <li onClick={loadProfile} className="nav-link username">{userdata?.name}</li>
                         </li>
                         <li className="nav-item">
                         <li onClick={loadProfile} className="nav-link"><img src={user} alt="login" /></li>

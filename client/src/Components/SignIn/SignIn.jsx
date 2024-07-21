@@ -9,6 +9,7 @@ const SignIn = ()=>{
     const dispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isTutor, setIsTutor] = useState(false);
 
     const [showModal, setShowModal] = useState(false);
     const [message, setMessage] = useState("");
@@ -30,7 +31,8 @@ const SignIn = ()=>{
 
     useEffect(() => {
         document.title = "Kyndo - Sign In"
-    }, []);
+        setIsTutor(id === "tutor")
+    }, [id]);
 
     const goToHomePage = () => {
         navigate('/')
@@ -38,14 +40,13 @@ const SignIn = ()=>{
 
     const handleSignin = async ()=>{
         try {
-            const user = {email, password};
+            const user = {email, password, isTutor};
             const result = await dispatch(signuser(user));
             if(signuser.fulfilled.match(result)){
                 setEmail('');
                 setPassword('');
                 setShowModal(true);
                 setMessage("you have logged in successfully!");
-                console.log("here is the result", result);
                 setIsError(false);
                 setTimeout(()=>{
                     setShowModal(false)
