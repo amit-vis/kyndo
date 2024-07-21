@@ -37,8 +37,9 @@ body {
   box-sizing: border-box;
   width: inherit;
   height: inherit;
-  background: var(--dark-blue);
-  color: var(--white);
+  background: var(--dark-blue) !important;
+  background-color: var(--dark-blue);
+  color: var(--white) !important;
   font-family: var(--inter);
 }
 
@@ -55,25 +56,20 @@ p {
   margin: 0;
 }
 
-.navbar-expand-lg {
+.navbar.navbar-expand-lg {
   position: fixed;
   width: 100%;
   background: var(--dark-blue);
   z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
 }
 
 .brand-name {
   margin: auto 0;
   color: var(--turquoise);
-}
-
-.nav {
-  color: var(--turquoise);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: .5rem 1.5rem;
-  font-weight: 500;
 }
 
 .logo {
@@ -83,13 +79,12 @@ p {
   font-weight: 600;
 }
 
-.navbar img {
-  width: 3rem;
+.nav-left {
+  margin-left: 2rem;
 }
 
-.navbar-nav {
-  align-items: flex-end;
-  justify-content: right;
+.navbar img {
+  width: 3rem;
 }
 
 img[alt="login"] {
@@ -102,19 +97,13 @@ img[alt="login"] {
   border-color: transparent;
 }
 
+.navbar-collapse {
+  color: var(--turquoise);
+}
+
 .nav-link {
-  color: var(--turquoise);
+  color: var(--turquoise) !important;
   cursor: pointer;
-}
-
-.nav-link:hover {
-  color: var(--turquoise);
-}
-
-.navbar-toggler {
-  color: transparent;
-  border-color: transparent;
-  outline: none;
 }
 
 .navbar-toggler-icon {
@@ -138,10 +127,12 @@ img[alt="login"] {
   display: flex;
   gap: 1rem;
   justify-content: space-between;
+  background: var(--dark-blue);
+  color: var(--white);
 }
 
 .section1 .title {
-  width: 40%;
+  width: 35%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -321,6 +312,7 @@ img[alt="login"] {
 .welcomeback {
   font-size: 1.4rem;
   font-weight: 500;
+  color: var(--white);
 }
 
 .courses-head {
@@ -328,6 +320,7 @@ img[alt="login"] {
   font-size: 1.25rem;
   margin: auto 0;
   margin-top: 2rem;
+  color: var(--white);
 }
 
 .dashboard-content {
@@ -341,6 +334,8 @@ img[alt="login"] {
   overflow: scroll;
   display: flex;
   gap: 1.5rem;
+  color: var(--white);
+  font-weight: 500;
 }
 
 .course-card {
@@ -375,6 +370,7 @@ img[alt="login"] {
 
 .percentage {
   margin: auto 0;
+  font-weight: 500;
 }
 
 .completed {
@@ -383,8 +379,8 @@ img[alt="login"] {
 }
 
 .progress {
-  height: inherit;
-  background: var(--green);
+  height: .5rem !important;
+  background: var(--green) !important;
 }
 
 .courses-head-div {
@@ -419,7 +415,7 @@ img[alt="login"] {
 }
 
 .course-desc {
-  margin: 5rem 0;
+  margin: 5rem 0 !important;
 }
 
 .subtitle {
@@ -456,32 +452,32 @@ img[alt="login"] {
   width: 100%;
   padding: .5rem;
   border: 2px solid;
-  border-radius: 0;
+  border-radius: 0 !important;
   font-family: var(--inter);
-  font-weight: 500;
+  font-weight: 500 !important;
 }
 
 .delete {
-  color: var(--red);
-  border-color: var(--red);
+  color: var(--red) !important;
+  border-color: var(--red) !important;
   background: transparent;
 }
 
 .delete:hover {
-  background: var(--red);
-  color: var(--white);
-  border-color: var(--red);
+  background: var(--red) !important;
+  color: var(--white) !important;
+  border-color: var(--red) !important;
 }
 
 .update {
-  background: var(--turquoise);
-  border-color: var(--turquoise);
+  background: var(--turquoise) !important;
+  border-color: var(--turquoise) !important;
 }
 
 .update:hover {
-  background: transparent;
-  color: var(--turquoise);
-  border-color: var(--turquoise);
+  background: transparent !important;
+  color: var(--turquoise) !important;
+  border-color: var(--turquoise) !important;
 }
 
 .upload-form {
