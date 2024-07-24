@@ -34,7 +34,7 @@ async function publishToQueue(queue, message) {
         channel.sendToQueue(queue, Buffer.from(message));
     } catch (error) {
         console.error("Error in publishing message:", error);
-        throw error; // Ensure errors are propagated
+        throw error; 
     }
 }
 
