@@ -15,6 +15,7 @@ import CourseUploaded from './Components/CourseUploaded/courseuploaded';
 import TutorProfile from './Components/TutorProfile/tupro';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import ForgotPassword from './Components/ForgotPassword';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path='/student-profile' element={<StudentProfile />} />
           <Route path='/course-uploaded' element={<CourseUploaded />} />
           <Route path='/tutor-profile' element={<TutorProfile />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
         </Routes>
       </Router>
       </Provider>
