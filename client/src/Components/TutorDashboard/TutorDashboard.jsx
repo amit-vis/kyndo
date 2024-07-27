@@ -18,11 +18,11 @@ export default function TutorDashboard() {
     const navigate = useNavigate();
 
     const manageCourse = (value) => {
-        navigate(`/manage-course/${value}`);
+        navigate(`/tutor/manage-course`);
     }
 
     const addCourse = () => {
-        navigate('/upload-course');
+        navigate('/tutor/upload-course');
     }
 
     return (

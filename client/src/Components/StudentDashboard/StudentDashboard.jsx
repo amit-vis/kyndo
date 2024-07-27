@@ -4,14 +4,23 @@ import thumbnail from '../../assets/thumbnail.png';
 import Footer from "../Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, userSelector } from "../../redux/reducer/formReducer";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function StudentDashboard() {
     const dispatch = useDispatch();
     const {userData, state, error} = useSelector(userSelector);
 
+    console.log(useParams())
+
     useEffect(()=>{
         dispatch(getUser(false))
     },[])
+
+    const navigate = useNavigate();
+
+    const viewCourse = () => {
+        navigate('/student/view-course')
+    }
 
     return (
         <>
@@ -27,7 +36,8 @@ export default function StudentDashboard() {
                     <div className="course">
                         <div className="course-card">
                             {/* thumbnail */}
-                            <img src={thumbnail} alt="" />
+                            <img src={thumbnail} alt=""
+                                onClick={(e) => viewCourse(e.currentTarget.dataset.course)} />
                         </div>
                         {/* course-name */}
                         <p className="course-name">Zidio UI/UX Training Session</p>

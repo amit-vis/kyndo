@@ -1,20 +1,16 @@
 import React, { useState } from "react";
-import DashboardNavbar from "../DashboardNavbar";
-import thumbnail from '../../assets/thumbnail.png';
-import Footer from "../Footer";
+import thumbnail from '../assets/thumbnail.png';
+import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
-import SyllabusViewer from "../SyllabusViewer";
+import SyllabusViewer from "./SyllabusViewer";
+import DashboardNavbar from "./DashboardNavbar";
 
-export default function ManageCourses() {
+export default function ViewCourse() {
 
     const navigate = useNavigate();
 
-    const updateCourse = () => {
-        navigate('/tutor/update-course');
-    }
-
-    const deleteCourse = () => {
-        navigate('/tutor-dashboard')
+    const enrollCourse = () => {
+        navigate('/student/course-enrolled');
     }
 
     const [syllabusVisible, setSyllabusVisible] = useState(false);
@@ -31,7 +27,7 @@ export default function ManageCourses() {
 
     return(
         <>
-        <DashboardNavbar user="tutor" />
+        <DashboardNavbar user="student" />
         <SyllabusViewer visible={syllabusVisible} closeSyllabus={closeSyllabus}  />
         <div id="manage-course" className="manage-course">
             <div className="courses-head">Zidio UI/UX Training Session</div>
@@ -83,13 +79,9 @@ export default function ManageCourses() {
                     </div>
                 </div>
             </div>
-            <div className="row view-syllabus">
-                <div className="col-lg-6 col-md-6 col-sm-12"></div>
-                <div className="col-lg-6 col-md-6 col-sm-12"><button className="signout w-100 mb-4" onClick={viewSyllabus}>View Syllabus</button></div>
-            </div>
             <div className="row">
-                <div className="col-lg-6 col-md-6 col-sm-12"><button className="btn delete" onClick={deleteCourse}>Delete Course</button></div>
-                <div className="col-lg-6 col-md-6 col-sm-12"><button className="btn update" onClick={updateCourse}>Update Course</button></div>
+                <div className="col-lg-6 col-md-6 col-sm-12"><button className="signout w-100 mb-4" onClick={viewSyllabus}>View Syllabus</button></div>
+                <div className="col-lg-6 col-md-6 col-sm-12"><button className="btn update" onClick={enrollCourse}>Enroll</button></div>
             </div>
         </div>
         <Footer />

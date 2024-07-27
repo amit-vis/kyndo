@@ -17,6 +17,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import ForgotPassword from './Components/ForgotPassword';
 import CourseEnroll from './Components/CourseEnroll/CourseEnroll';
+import ViewCourse from './Components/ViewCourse';
 
 function App() {
   return (
@@ -31,9 +32,9 @@ function App() {
           <Route path='/courses' element={<Courses />} />
           <Route path='/student-dashboard' element={<StudentDashboard />} />
           <Route path='/tutor-dashboard' element={<TutorDashboard />} />
-          <Route path='/manage-course' element={<ManageCourses />} />
-          <Route path='/upload-course' element={<UploadCourse />} />
-          <Route path='/update-course' element={<UpdateCourse />} />
+          <Route path='/tutor/manage-course' element={<ManageCourses />} />
+          <Route path='/tutor/upload-course' element={<UploadCourse />} />
+          <Route path='/tutor/update-course' element={<UpdateCourse />} />
           <Route path='/student-profile' element={<StudentProfile />} />
           <Route path='/student/course-enrolled' element={<CourseUploaded user="student" />} />
           <Route path='/tutor/course-uploaded' element={<CourseUploaded user="tutor" />} />
@@ -41,6 +42,7 @@ function App() {
           <Route path='/tutor-profile' element={<TutorProfile />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/course-enroll' element={<CourseEnroll />} />
+          <Route path='/student/view-course' element={<ViewCourse />} />
         </Routes>
       </Router>
       </Provider>

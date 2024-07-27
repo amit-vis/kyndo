@@ -132,7 +132,9 @@ export default function UploadCourse() {
                                             />
                                         </div>
                                     ))}
-                                    <button className="signout" onClick={() => addChapter(weekIndex)}>Add Chapter</button>
+                                    <div className="add-chapter w-100">
+                                        <button className="signout align-right" onClick={() => addChapter(weekIndex)}>Add Chapter</button>
+                                    </div>
                                 </div>
                             ))}
                             <button className="signout" onClick={addWeek}>Add Week</button>
