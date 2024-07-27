@@ -288,7 +288,7 @@ img[alt="login"] {
   padding: .5rem 2rem;
   color: var(--white);
   border: 2px solid;
-  border-color: var(--turquoise);
+  border-color: var(--turquoise) !important;
   font-family: var(--inter);
   font-size: .9rem;
 }
@@ -610,6 +610,28 @@ select.input {
 .reset .btn {
   margin-top: 2rem;
 }
+
+.syllabus {
+  font-size: 15px !important;
+  border: 2px solid !important;
+  border-color: var(--turquoise) !important;
+  color: var(--white) !important;
+}
+
+.syllabus:hover {
+  background: var(--turquoise) !important;
+  color: var(--dark-blue) !important;
+}
+
+.week-section {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid;
+  border-color: var(--turquoise);
+  margin-bottom: 1rem;
+}
+
 
 
 @media (max-width: 1024px) {

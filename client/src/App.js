@@ -16,6 +16,7 @@ import TutorProfile from './Components/TutorProfile/tupro';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import ForgotPassword from './Components/ForgotPassword';
+import CourseEnroll from './Components/CourseEnroll/CourseEnroll';
 
 function App() {
   return (
@@ -34,9 +35,12 @@ function App() {
           <Route path='/upload-course' element={<UploadCourse />} />
           <Route path='/update-course' element={<UpdateCourse />} />
           <Route path='/student-profile' element={<StudentProfile />} />
-          <Route path='/course-uploaded' element={<CourseUploaded />} />
+          <Route path='/student/course-enrolled' element={<CourseUploaded user="student" />} />
+          <Route path='/tutor/course-uploaded' element={<CourseUploaded user="tutor" />} />
+          <Route path='/tutor/course-updated' element={<CourseUploaded user="tutor" msg="update" />} />
           <Route path='/tutor-profile' element={<TutorProfile />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/course-enroll' element={<CourseEnroll />} />
         </Routes>
       </Router>
       </Provider>

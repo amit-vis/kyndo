@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/kyndo-light.png';
+import Footer from './Footer';
 
 export default function ForgotPassword() {
 
@@ -36,6 +37,7 @@ export default function ForgotPassword() {
                 <button className="btn update">Reset Password</button>
             </div>
         </div>
+        <Footer />
         </>
     )
 }
