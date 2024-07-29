@@ -9,9 +9,6 @@ const syllabusItemSchem = new mongoose.Schema({
         type: String,
         required: true
     }],
-    readings:[{
-        type: String
-    }],
     assignments:[{
         type: String
     }]

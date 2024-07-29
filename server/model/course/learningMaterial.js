@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 
 const learningMaterialSchema = new mongoose.Schema({
-    course:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
-        required: true
-    },
-    type:{
+    topic:{
         type: String,
         required: true
     },

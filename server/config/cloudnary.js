@@ -1,24 +1,10 @@
-const cloudanary = require("cloudinary").v2
-const {CloudinaryStorage} = require("multer-storage-cloudinary");
-const multer = require("multer");
+const cloudinary = require('cloudinary').v2;
 
-cloudanary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET, 
-})
+// integared the cloudinary for storing the image
+cloudinary.config({ 
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.API_KEY, 
+    api_secret: process.env.API_SECRET 
+  });
 
-const storage = new CloudinaryStorage({
-    cloudinary: cloudanary,
-    params:{
-        folder:'learningMaterials',
-        allowed_formats: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx', 'mp4', 'avi'],
-    },
-})
-
-const upload = multer({storage: storage});
-
-module.exports = {
-    cloudanary,
-    upload
-}
+module.exports = cloudinary;
