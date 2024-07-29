@@ -1,14 +1,37 @@
 import './courseuploaded.css';
 import DashboardNavbar from '../DashboardNavbar';
 import checkmark from '../../assets/checkmark.png';
+import { useParams } from 'react-router-dom';
 
-const CourseUploaded = ()=>{
+const CourseUploaded = (props)=>{
+
+    let msg = "";
+    const { id } = useParams();
+    let profileType = "";
+    console.log(id);
+
+    if(id == "tutor") {
+        profileType = "tutor";
+    } else {
+        profileType = "student"
+    }
+
+    if(props.user == "tutor") {
+        if(props.msg == "update") {
+            msg = "Course has been updated successfully!";
+        } else {
+            msg = "Your course has been uploaded successfully!";
+        }
+    } else {
+        msg = "You have been enrolled into the course successfully!"
+    }
+
     return(
         <>
-            <DashboardNavbar user="tutor" />
+            <DashboardNavbar user={profileType} />
             <div className="courseuploadedcontainer">
                 <img src={checkmark} className='courseuploadedimg' alt="" />
-                <div className="courseuploadedtext">Your course has been uploaded successfully!</div>
+                <div className="courseuploadedtext">{msg}</div>
             </div>
         </>
     )

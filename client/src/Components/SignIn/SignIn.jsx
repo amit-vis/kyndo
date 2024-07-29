@@ -113,7 +113,7 @@ const SignIn = ()=>{
                         <Link to={newAccount}>Don't have an account? Sign Up</Link>
                     </div>
                     <div className="link link-pass">
-                        <a href="">Forgot Password</a>
+                        <Link to='/forgot-password' href="">Forgot Password</Link>
                     </div>
                 </div>
             </div>

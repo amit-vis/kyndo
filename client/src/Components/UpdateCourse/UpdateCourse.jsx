@@ -6,8 +6,12 @@ export default function UpdateCourse() {
 
     const [skills, setSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
-    const [prerequisites, setPrerequisites] = useState(false);
     const [select, setSelect] = useState('');
+    const [syllabus, setSyllabus] = useState([]);
+    const[weeks, setWeeks] = useState([{
+        chapters: ['']
+    }]);
+
     const navigate = useNavigate();
     
     const addSkill = () => {
@@ -15,6 +19,23 @@ export default function UpdateCourse() {
             setSkills([...skills, currentSkill]);
             setCurrentSkill('');
         }
+    };
+
+    const addChapter = (weekIndex) => {
+        const newWeeks = [...weeks];
+        newWeeks[weekIndex].chapters.push('');
+        setWeeks(newWeeks);
+    }
+
+    const addWeek = () => {
+        const newWeek = {chapters: ['']};
+        setWeeks([...weeks, newWeek]);
+    }
+
+    const handleChapterChange = (weekIndex, chapterIndex, event) => {
+        const newWeeks = [...weeks];
+        newWeeks[weekIndex].chapters[chapterIndex] = event.target.value;
+        setWeeks(newWeeks);
     };
 
     const handleSkillChange = (event) => {
@@ -31,11 +52,11 @@ export default function UpdateCourse() {
     }
 
     const cancelUpdate = () => {
-        navigate('/manage-course');
+        navigate('/tutor-dashboard');
     }
 
     const proceedUpdate = () => {
-
+        navigate('/tutor/course-updated');
     }
 
 
@@ -92,6 +113,30 @@ export default function UpdateCourse() {
                                 onChange={handleSkillChange}
                             />
                             <button className="signout" onClick={addSkill}>Add skill</button>
+                        </div>
+                    </div>
+                    <div className="sub-form">
+                        <p className="label desc">Syllabus:</p>
+                        <div className="input add-skill">
+                            {weeks.map((week, weekIndex) => (
+                                <div key={weekIndex} className="week-section">
+                                    <p className="label desc week">Week {weekIndex + 1}</p>
+                                    {week.chapters.map((chapter, chapterIndex) => (
+                                        <div key={chapterIndex} className="input add-skill">
+                                            <p className="label desc">Chapter {chapterIndex + 1}:</p>
+                                            <input
+                                                type="text"
+                                                className="input"
+                                                placeholder="Enter chapter"
+                                                value={chapter}
+                                                onChange={(e) => handleChapterChange(weekIndex, chapterIndex, e)}
+                                            />
+                                        </div>
+                                    ))}
+                                    <button className="signout" onClick={() => addChapter(weekIndex)}>Add Chapter</button>
+                                </div>
+                            ))}
+                            <button className="signout" onClick={addWeek}>Add Week</button>
                         </div>
                     </div>
                 </div>
