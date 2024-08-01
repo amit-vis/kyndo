@@ -10,6 +10,6 @@ router.get('/view-user', passport.authenticate('user-jwt', { session: false }),c
 
 // Route for tutor details
 router.get('/view-tutor', passport.authenticate('tutor-jwt', { session: false }),checkBlacklist, userController.getDetails);
-router.post("/logout", userController.logout); // Added logout route
+router.post("/signout", userController.logout);
 
 module.exports = router;

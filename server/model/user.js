@@ -17,7 +17,9 @@ const createUser = new mongoose.Schema({
     password:{
         type: String,
         required: true
-    }
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 },{
     timestamps: true
 });

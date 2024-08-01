@@ -23,7 +23,7 @@ export default function DashboardNavbar(props) {
     const navigate = useNavigate();
 
     const loadProfile = () => {
-        const userProfile = `/${props.user}-profile`;
+        const userProfile = `/${props.user}-profile/${userData._id}`;
         navigate(userProfile);
     }
     useEffect(() => {

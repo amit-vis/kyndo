@@ -2,6 +2,10 @@ const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { publishToQueue } = require("../config/rabbitMq");
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
+require('dotenv').config();
+
 
 module.exports.create = async (req, res) => {
     try {
@@ -83,7 +87,8 @@ module.exports.signin = async (req, res) => {
         const token = jwt.sign(user.toJSON(), process.env.SECRET_KEY, { expiresIn: "1h" });
         return res.status(200).json({
             message: "Here is the token",
-            token
+            token,
+            userData: user
         });
     } catch (error) {
         return res.status(500).json({
@@ -143,4 +148,98 @@ module.exports.logout = async (req, res) => {
     }
 };
 
+module.exports.forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
 
+        if (!email) {
+            return res.status(400).json({
+                message: "Email is required."
+            });
+        }
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({
+                message: "User with this email does not exist."
+            });
+        }
+
+        const token = crypto.randomBytes(20).toString('hex');
+        user.resetPasswordToken = token;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+        await user.save();
+
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            }
+        });
+
+        const mailOptions = {
+            to: user.email,
+            from: process.env.EMAIL_USER,
+            subject: 'Password Reset',
+            text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n` +
+                  `Please click on the following link, or paste this into your browser to complete the process:\n\n` +
+                  `http://localhost:3000/reset/${token}\n\n` +
+                  `If you did not request this, please ignore this email and your password will remain unchanged.\n`
+        };
+
+        transporter.sendMail(mailOptions, (err, response) => {
+            if (err) {
+                console.error('Error sending email: ', err);
+                return res.status(500).json({
+                    message: "Error sending the email."
+                });
+            } else {
+                return res.status(200).json({
+                    message: 'Recovery email sent.'
+                });
+            }
+        });
+    } catch (error) {
+        console.error('Server Error: ', error);
+        return res.status(500).json({
+            message: "Internal server error",
+            error: error.message
+        });
+    }
+};
+
+module.exports.resetPassword = async (req, res) => {
+    try {
+        const { token } = req.params;
+        const { password, cpassword } = req.body;
+
+        if (!password || !cpassword) {
+            return res.status(400).json({ message: "All fields are required." });
+        }
+
+        if (password !== cpassword) {
+            return res.status(400).json({ message: "Passwords do not match!" });
+        }
+
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).json({ message: "Password reset token is invalid or has expired." });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        user.password = hashedPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
+
+        res.status(200).json({ message: "Password has been successfully reset." });
+    } catch (error) {
+        console.error('Server Error:', error);
+        res.status(500).json({ message: "Internal server error", error: error.message });
+    }
+};

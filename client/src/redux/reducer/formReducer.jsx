@@ -22,17 +22,14 @@ export const createUser = createAsyncThunk("user/register", async (user, { rejec
     }
 });
 
-export const signuser = createAsyncThunk("user/signin", async (user, { rejectWithValue }) => {
+export const signuser = createAsyncThunk('user/signin', async (user, { rejectWithValue }) => {
     try {
         const { email, password, isTutor } = user;
-        const response = await axios.post("http://localhost:8000/user/signin",
-            { email, password, isTutor })
+        const response = await axios.post('http://localhost:8000/user/signin', { email, password, isTutor });
         if (response.status === 200) {
-            const data = response.data;
-            return data
+            return response.data;
         } else {
-            const errorData = response.data;
-            return rejectWithValue(errorData)
+            return rejectWithValue(response.data);
         }
     } catch (error) {
         if (error.response && error.response.data) {
@@ -66,30 +63,47 @@ export const getUser = createAsyncThunk("user/details", async (isTutor, { reject
 
 export const logoutUser = createAsyncThunk("user/signout", async (_, { rejectWithValue }) => {
     try {
-        const token = localStorage.getItem("token")
-        const response = await axios.post("http://localhost:8000/user/logout",{},{
-            headers:{
+        const token = localStorage.getItem("token");
+        const response = await axios.post("http://localhost:8000/user/signout", {}, {
+            headers: {
                 "Authorization": `Bearer ${token}`
             }
-        })
+        });
         if (response.status === 200) {
-            const data = response.data
-            return data
+            return response.data;
         } else {
-            const errorData = response.data
-            return rejectWithValue(errorData)
+            return rejectWithValue(response.data);
         }
     } catch (error) {
         if (error.response) {
-            console.error("Server responded with error:", error.response.data); // Log server response
-            return rejectWithValue(error.response.data);
+            console.error("Server responded with error:", error.response.data);
+            return rejectWithValue({ message: 'Server error occurred', ...error.response.data });
         } else {
-            console.error("Error message:", error.message); // Log error message
-            return rejectWithValue(error.message);
+            console.error("Error message:", error.message);
+            return rejectWithValue({ message: 'Network or other error occurred', error: error.message });
         }
     }
-})
+});
 
+export const verifyCurrentPassword = createAsyncThunk(
+    'user/verifyCurrentPassword',
+    async (password, { rejectWithValue }) => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axios.post('http://localhost:8000/user/verify-password', 
+                { password },
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data.message || error.message);
+        }
+    }
+);
 
 const initialState = {
     status: "idle",
@@ -119,7 +133,8 @@ const userSlice = createSlice({
                 state.status = "pending"
             })
             .addCase(signuser.fulfilled, (state, action) => {
-                state.status = "succeeded"
+                state.status = "succeeded";
+                state.userData = action.payload.userData;
                 localStorage.setItem("token", action.payload.token)
             })
             .addCase(signuser.rejected, (state, action) => {
@@ -132,6 +147,7 @@ const userSlice = createSlice({
             .addCase(getUser.fulfilled, (state, action) => {
                 state.status = "succeeded"
                 state.userData = action.payload.user
+                state.error = null; // Clear any previous errors
             })
             .addCase(getUser.rejected, (state, action) => {
                 state.status = "Failed"
@@ -141,12 +157,25 @@ const userSlice = createSlice({
                 state.status = "Pending"
             })
             .addCase(logoutUser.fulfilled, (state, action)=>{
-                state.status = "succeeded"
+                state.status = "succeeded";
+                state.userData = null; // Clear user data on logout
+                localStorage.removeItem("token"); // Ensure token is removed
+                state.error = null; // Clear any previous errors
             })
             .addCase(logoutUser.rejected, (state, action)=>{
                 state.status = "Failed"
-                state.error = action.payload
+                state.error = action.payload;
             })
+            .addCase(verifyCurrentPassword.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(verifyCurrentPassword.fulfilled, (state) => {
+                state.status = 'succeeded';
+            })
+            .addCase(verifyCurrentPassword.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
+            });
     }
 });
 
