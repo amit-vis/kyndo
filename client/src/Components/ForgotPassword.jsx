@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/kyndo-light.png';
 import Footer from './Footer';
@@ -8,8 +8,13 @@ export default function ForgotPassword() {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const [isTutor, setTutor] = useState(false);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+    
+    })
 
     const handleSubmit = async (e) => {
         e.preventDefault();

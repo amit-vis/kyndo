@@ -3,6 +3,9 @@ import DashboardNavbar from '../DashboardNavbar';
 import user from '../../assets/user.png';
 
 const StudentProfile = ()=>{
+
+    
+
     return(
         <>
         <DashboardNavbar user="student" />
