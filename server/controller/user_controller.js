@@ -29,7 +29,7 @@ module.exports.create = async (req, res) => {
                 success: false
             });
         }
-        let user = await User.findOne({ email: email, isTutor: isTutor });
+        let user = await User.findOne({ email: email });
         if (user) {
             return res.status(402).json({
                 message: "User already exists!",
@@ -70,6 +70,7 @@ module.exports.signin = async (req, res) => {
 
         const user = await User.findOne({ email: email, isTutor: isTutor });
         if (!user) {
+            console.log(user.password)
             return res.status(401).json({
                 message: "Email or password is incorrect!",
                 success: false
@@ -78,6 +79,7 @@ module.exports.signin = async (req, res) => {
 
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) {
+            console.log(user.password)
             return res.status(401).json({
                 message: "Email or password is incorrect!",
                 success: false
@@ -150,7 +152,7 @@ module.exports.logout = async (req, res) => {
 
 module.exports.forgotPassword = async (req, res) => {
     try {
-        const { email } = req.body;
+        const { email, isTutor } = req.body;
 
         if (!email) {
             return res.status(400).json({
@@ -158,7 +160,7 @@ module.exports.forgotPassword = async (req, res) => {
             });
         }
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email, isTutor });
         if (!user) {
             return res.status(404).json({
                 message: "User with this email does not exist."
@@ -177,6 +179,8 @@ module.exports.forgotPassword = async (req, res) => {
                 pass: process.env.EMAIL_PASS
             }
         });
+
+        // mailer
 
         const mailOptions = {
             to: user.email,
@@ -232,7 +236,8 @@ module.exports.resetPassword = async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        user.password = hashedPassword;
+        user.password = password;
+        console.log(user.password)
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
         await user.save();
