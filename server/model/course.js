@@ -5,18 +5,33 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    author:{
+        type: String,
+        required: true
+    },
     description:{
         type: String,
         required: true
     },
+    videoUrl:{
+        type: String
+    },
+    prerequisites:{
+        type: String
+    },
+
     syllabus:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Syllabus"
+        chapters:[String]
     }],
-    learningMaterials:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "LearningMaterial",
-    }],
+    courseNotes:{
+        type: String
+    },
+    courseAssignments:{
+        type: String
+    },
+    courseThumbnail:{
+        type: String
+    },
     tutor:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"User",

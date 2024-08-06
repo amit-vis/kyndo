@@ -1,19 +1,52 @@
 import React, { useState } from "react";
 import DashboardNavbar from "../DashboardNavbar";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { createCourse } from "../../redux/reducer/tutorReducer";
+import { Notification } from "../Notification";
+import { userSelector } from "../../redux/reducer/formReducer";
 
 export default function UploadCourse() {
-
+    const {userData} = useSelector(userSelector)
+    const dispatch = useDispatch();
+    const [courseData, setCourseData] = useState({
+        title:"",
+        author:"",
+        description:"",
+        videoUrl: null,
+        prerequisites: "",
+        syllabus:[],
+        courseNotes:null,
+        courseAssignments:null,
+        courseThumbnail:null
+    })
     const [skills, setSkills] = useState([]);
     const [currentSkill, setCurrentSkill] = useState('');
     const [select, setSelect] = useState('');
-    const [syllabus, setSyllabus] = useState([]);
     const[weeks, setWeeks] = useState([{
         chapters: ['']
     }]);
 
+
+    const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = useState("");
+    const [isError, setIsError] = useState(false);
+
     const navigate = useNavigate();
+    const handleChange = (e)=>{
+        setCourseData({
+            ...courseData,
+            [e.target.name]: e.target.value
+        })
+    }
     
+    const handleFileChange = (e)=>{
+        setCourseData({
+            ...courseData,
+            [e.target.name]: e.target.files[0]
+        })
+    }
+
     const addSkill = () => {
         if (currentSkill.trim()) {
             setSkills([...skills, currentSkill]);
@@ -52,11 +85,57 @@ export default function UploadCourse() {
     }
 
     const cancelUpload = () => {
-        navigate('/tutor-dashboard');
+        navigate(`/tutor-dashboard/${userData._id}`);
     }
 
-    const proceedUpload = () => {
-        navigate('/tutor/course-uploaded');
+    const proceedUpload = async () => {
+        try {
+            const formData = new FormData();
+            formData.append("title", courseData.title);
+            formData.append("author", courseData.author);
+            formData.append("description", courseData.description);
+            formData.append("videoUrl", courseData.videoUrl);
+            formData.append("prerequisites", courseData.prerequisites);
+            formData.append("syllabus", JSON.stringify(weeks));
+            formData.append("courseNotes", courseData.courseNotes);
+            formData.append("courseAssignments", courseData.courseAssignments);
+            formData.append("courseThumbnail", courseData.courseThumbnail);
+            const results = await dispatch(createCourse(formData));
+            if(createCourse.fulfilled.match(results)){
+                setCourseData({
+                    title:"",
+                    author:"",
+                    description:"",
+                    videoUrl: null,
+                    prerequisites: "",
+                    syllabus:[],
+                    courseNotes:null,
+                    courseAssignments:null,
+                    courseThumbnail:null
+                });
+                setShowModal(true);
+                setIsError(false);
+                setMessage(results.payload.message);
+                setTimeout(()=>{
+                    setShowModal(false);
+                    navigate(`/tutor/course-uploaded/${userData._id}`);
+                },3000)
+            }else{
+                setShowModal(true);
+                setIsError(true);
+                setMessage(results.payload.message);
+                setTimeout(()=>{
+                    setShowModal(false);
+                },3000)
+            }
+        } catch (error) {
+            setShowModal(true);
+            setIsError(true);
+            setMessage(error.message);
+            setTimeout(()=>{
+                setShowModal(false);
+            },3000)
+        }
     }
 
 
@@ -70,11 +149,19 @@ export default function UploadCourse() {
                 <div className="col-lg-6 col-md-6 col-sm-12">
                     <div className="sub-form">
                         <p className="label">Course Name:</p>
-                        <input type="text" className="input" placeholder="Enter course name" required />
+                        <input type="text" className="input" 
+                        name="title"
+                        value={courseData.title}
+                        onChange={handleChange}
+                        placeholder="Enter course name" required />
                     </div>
                     <div className="sub-form">
                         <p className="label">Author Name:</p>
-                        <input type="text" className="input" placeholder="Enter author name" required />
+                        <input type="text" className="input"
+                        name="author"
+                        value={courseData.author}
+                        onChange={handleChange}
+                         placeholder="Enter author name" required />
                     </div>
                     <div className="sub-form">
                         <p className="label">Upload Date:</p>
@@ -86,11 +173,17 @@ export default function UploadCourse() {
                     </div>
                     <div className="sub-form">
                         <p className="label">Upload Course:</p>
-                        <input type="file" accept="video/*" className="input" required />
+                        <input type="file" accept="video/*" 
+                        name="videoUrl"
+                        onChange={handleFileChange}
+                        className="input" required />
                     </div>
                     <div className="sub-form">
                         <p className="label desc">Course Description:</p>
-                        <textarea name="" id="" placeholder="Enter the course description" className="input textarea" required></textarea>
+                        <textarea name="description" id="" 
+                        value={courseData.description}
+                        onChange={handleChange}
+                        placeholder="Enter the course description" className="input textarea" required></textarea>
                     </div>
                     <div className="sub-form">
                         <p className="label desc">Skills Gained:</p>
@@ -151,21 +244,33 @@ export default function UploadCourse() {
                                 <option value="no">No</option>
                             </select>
                             {select === 'yes' && (
-                                <textarea name="" id="" placeholder="Enter the prerequisites" className="input textarea" required></textarea>
+                                <textarea name="prerequisites" id="" 
+                                value={courseData.prerequisites}
+                                onChange={handleChange}
+                                placeholder="Enter the prerequisites" className="input textarea" required></textarea>
                             )}
                         </div>
                     </div>
                     <div className="sub-form">
                         <p className="label">Upload Course Notes:</p>
-                        <input type="file" accept=".pdf, .doc" className="input" required />
+                        <input type="file" 
+                        name="courseNotes"
+                        onChange={handleFileChange}
+                        accept=".pdf, .doc" className="input" required />
                     </div>
                     <div className="sub-form">
                         <p className="label">Upload Course Assignments:</p>
-                        <input type="file" className="input" required />
+                        <input type="file" 
+                        name="courseAssignments"
+                        onChange={handleFileChange}
+                        className="input" required />
                     </div>
                     <div className="sub-form">
                         <p className="label">Upload Course Thumbnail:</p>
-                        <input type="file" accept="image/*" className="input" required />
+                        <input type="file" 
+                        name="courseThumbnail"
+                        onChange={handleFileChange}
+                        accept="image/*" className="input" required />
                     </div>
                 </div>
             </div>
@@ -174,6 +279,12 @@ export default function UploadCourse() {
                 <div className="col-lg-6 col-md-6 col-sm-12"><button className="btn update" onClick={proceedUpload}>Upload Course</button></div>
             </div>
         </div>
+        <Notification
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        message={message}
+        isError={isError}
+        />
         </>
     )
 }

@@ -147,7 +147,7 @@ const userSlice = createSlice({
             .addCase(getUser.fulfilled, (state, action) => {
                 state.status = "succeeded"
                 state.userData = action.payload.user
-                state.error = null; // Clear any previous errors
+                state.error = null; 
             })
             .addCase(getUser.rejected, (state, action) => {
                 state.status = "Failed"
@@ -158,9 +158,9 @@ const userSlice = createSlice({
             })
             .addCase(logoutUser.fulfilled, (state, action)=>{
                 state.status = "succeeded";
-                state.userData = null; // Clear user data on logout
-                localStorage.removeItem("token"); // Ensure token is removed
-                state.error = null; // Clear any previous errors
+                state.userData = null; 
+                localStorage.removeItem("token"); 
+                state.error = null; 
             })
             .addCase(logoutUser.rejected, (state, action)=>{
                 state.status = "Failed"
