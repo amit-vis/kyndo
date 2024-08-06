@@ -23,7 +23,7 @@ export default function DashboardNavbar(props) {
     const navigate = useNavigate();
 
     const loadProfile = () => {
-        const userProfile = `/${props.user}-profile/${userData._id}`;
+        const userProfile = `/${props.user}-profile/${userData?._id}`;
         navigate(userProfile);
     }
     useEffect(() => {
@@ -64,7 +64,7 @@ export default function DashboardNavbar(props) {
     <nav className="navbar navbar-expand-lg">
             <div className="container-fluid nav">
                 <div className="nav-left">
-                    <Link to={`/${props.user}-dashboard/${userData._id}`} style={{
+                    <Link to={`/${props.user}-dashboard/${userData?._id}`} style={{
                         textDecoration: 'none',
                         color: 'inherit',
                         display: 'flex',
