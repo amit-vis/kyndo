@@ -6,7 +6,7 @@ export const createCourse = createAsyncThunk("create/course", async (courseData,
         const token = localStorage.getItem("token");
         const response = await axios.post("http://localhost:8000/course/create", courseData, {
             headers:{
-                Authorization: `Bearer ${token}`,
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "multipart/form-data"
             }
         })
@@ -78,11 +78,64 @@ export const getSinglecourse = createAsyncThunk("get/single-course", async (id, 
             return rejectedWithValue({ message: 'Network or other error occurred', error: error.message });
         }
     }
+});
+
+export const updateCourse = createAsyncThunk("course/edit", async ({id, coursedata},{rejectedWithValue})=>{
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.patch(`http://localhost:8000/course/update/${id}`, coursedata, {
+            headers:{
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        })
+        if(response.status === 200){
+            const data = response.data;
+            return data
+        }else{
+            const errorData = response.data;
+            return rejectedWithValue(errorData)
+        }
+    } catch (error) {
+        if (error.response) {
+            console.error("Server responded with error:", error.response.data);
+            return rejectedWithValue({ message: 'Server error occurred', ...error.response.data });
+        } else {
+            console.error("Error message:", error.message);
+            return rejectedWithValue({ message: 'Network or other error occurred', error: error.message });
+        }
+    }
+});
+
+export const deleteCourses = createAsyncThunk("course/delete", async (id, {rejectedWithValue})=>{
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.delete(`http://localhost:8000/course/delete/${id}`,{
+            headers:{
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        if(response.status === 200){
+            const data = response.data
+            return data
+        }else{
+            const errorData = response.data;
+            return rejectedWithValue(errorData)
+        }
+    } catch (error) {
+        if (error.response) {
+            console.error("Server responded with error:", error.response.data);
+            return rejectedWithValue({ message: 'Server error occurred', ...error.response.data });
+        } else {
+            console.error("Error message:", error.message);
+            return rejectedWithValue({ message: 'Network or other error occurred', error: error.message });
+        }
+    }
 })
 
 const initialState = {
     status: "idle",
-    courseData: null,
+    courseData: [],
     singleCourseData: null,
     error: null
 }
@@ -121,6 +174,32 @@ const courseSlice = createSlice({
             state.singleCourseData = action.payload.course
         })
         .addCase(getSinglecourse.rejected, (state, action)=>{
+            state.status = "Failed"
+            state.error = action.payload
+        })
+        .addCase(updateCourse.pending, (state)=>{
+            state.status = "Pending.."
+        })
+        .addCase(updateCourse.fulfilled, (state, action)=>{
+            state.status = "Succeeded"
+            state.courseData = state.courseData.filter(item=>item._id !== action.payload.courseId);
+        })
+        .addCase(updateCourse.rejected, (state, action)=>{
+            state.status = "Failed"
+            state.error = action.payload
+        })
+        .addCase(deleteCourses.pending, (state)=>{
+            state.status = "pending.."
+        })
+        .addCase(deleteCourses.fulfilled, (state, action) => {
+            state.status = "succeeded";
+            const courseId = action.payload.courseId; 
+            const index = state.courseData.findIndex(course => course._id === courseId);
+            if (index !== -1) {
+                state.courseData.splice(index, 1); 
+            }
+        })
+        .addCase(deleteCourses.rejected, (state, action)=>{
             state.status = "Failed"
             state.error = action.payload
         })

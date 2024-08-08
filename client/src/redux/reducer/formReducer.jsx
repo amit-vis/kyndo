@@ -43,7 +43,7 @@ export const signuser = createAsyncThunk('user/signin', async (user, { rejectWit
 export const getUser = createAsyncThunk("user/details", async (isTutor, { rejectWithValue }) => {
     try {
         const token = localStorage.getItem("token")
-        const endpoint = isTutor ? "/view-tutor" : "/view-user"
+        const endpoint = isTutor ? "view-tutor" : "view-user"
         const response = await axios.get(`http://localhost:8000/user/${endpoint}`, {
             headers: {
                 "Authorization": `Bearer ${token}`
