@@ -3,69 +3,77 @@ import DashboardNavbar from "../DashboardNavbar";
 import thumbnail from '../../assets/thumbnail.png';
 import Footer from "../Footer";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getUser, userSelector } from "../../redux/reducer/formReducer";
-import { useNavigate, useParams } from "react-router-dom";
+import { courseSelector, getCourse } from "../../redux/reducer/studentReducer";
 
 export default function StudentDashboard() {
     const dispatch = useDispatch();
-    const {userData, state, error} = useSelector(userSelector);
-
-    console.log(useParams())
-
-    useEffect(()=>{
-        dispatch(getUser(false))
-    },[])
-
     const navigate = useNavigate();
+    const { userData } = useSelector(userSelector);
+    const { courseData, status, error } = useSelector(courseSelector);
+    console.log(courseData)
 
-    const viewCourse = () => {
-        navigate('/student/view-course')
+    useEffect(() => {
+        dispatch(getUser(false))
+            .unwrap()
+            .catch(err => console.error('Failed to fetch user:', err));
+    
+        dispatch(getCourse())
+            .unwrap()
+            .catch(err => console.error('Failed to fetch courses:', err));
+    }, [dispatch]);
+    
+    if (status === 'pending') return <p>Loading...</p>;
+    if (status === 'Failed') return <p>{error?.message || 'Failed to load courses'}</p>;
+
+    const manageCourse = (value) => {
+        navigate(`/student/view-course/${value}`);
     }
 
     return (
         <>
-        <DashboardNavbar user="student" />
-        <div className="dashboard">
-            <div className="dashboard-content">
-                <p className="welcomeback">
-                    Welcome back, {userData?.name}!
-                </p>
-                <p className="courses-head">Courses</p>
-                <div className="courses">
-                    {/* courses */}
-                    <div className="course">
-                        <div className="course-card">
-                            {/* thumbnail */}
-                            <img src={thumbnail} alt=""
-                                onClick={(e) => viewCourse(e.currentTarget.dataset.course)} />
-                        </div>
-                        {/* course-name */}
-                        <p className="course-name">Zidio UI/UX Training Session</p>
+            <DashboardNavbar user="student" />
+            <div className="dashboard">
+                <div className="dashboard-content">
+                    <p className="welcomeback">
+                        Welcome back, {userData?.name}!
+                    </p>
+                    <p className="courses-head">Courses</p>
+                    <div className="courses">
+                        {courseData?.length ? (
+                            courseData.map((item, index) => (
+                                <div className="course" key={index}>
+                                    <div className="course-card">
+                                        <img src={item.courseThumbnail} alt={item.title} onClick={() => manageCourse(item._id)} />
+                                    </div>
+                                    <p className="course-name" onClick={() => manageCourse(item._id)}>
+                                        {item.title}
+                                    </p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No courses available</p>
+                        )}
                     </div>
-                </div>
-                <p className="courses-head">My Courses</p>
-                <div className="courses">
-                    {/* courses */}
-                    <div className="course">
-                        <div className="course-card">
-                            {/* thumbnail */}
-                            <img src={thumbnail} alt="" />
-                        </div>
-                        {/* course-name */}
-                        <p className="course-name">Zidio UI/UX Training Session</p>
-                        <div className="bar">
-                            <div className="completed">
-                                {/* progress */}
-                                <div className="progress" style={{width: '75%'}}></div>
+                    <p className="courses-head">My Courses</p>
+                    <div className="courses">
+                        <div className="course">
+                            <div className="course-card">
+                                <img src={thumbnail} alt="" />
                             </div>
-                            {/* percentage */}
-                            <p className="percentage">75%</p>
+                            <p className="course-name">Zidio UI/UX Training Session</p>
+                            <div className="bar">
+                                <div className="completed">
+                                    <div className="progress" style={{ width: '75%' }}></div>
+                                </div>
+                                <p className="percentage">75%</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
         </>
-    )
+    );
 }

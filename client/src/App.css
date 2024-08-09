@@ -344,6 +344,10 @@ img[alt="login"] {
   width: fit-content;
 }
 
+.course-card img {
+  height: 11rem;
+}
+
 .course {
   width: fit-content;
 }
@@ -694,6 +698,10 @@ select.input {
 .chapter-content li {
   font-size: small;
   margin-bottom: .5rem;
+}
+
+.contact {
+  text-align: right;
 }
 
 

@@ -67,10 +67,6 @@ const SignUp = () => {
         navigate('/');
     };
 
-    const loadDashboard = () => {
-        navigate(`/${id}-dashboard`);
-    };
-
     return (
         <>
             <div className="fluid-container sign-container">

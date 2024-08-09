@@ -1,26 +1,37 @@
 import './stupro.css';
 import DashboardNavbar from '../DashboardNavbar';
 import user from '../../assets/user.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser, userSelector } from '../../redux/reducer/formReducer';
+import { useEffect } from 'react';
 
 const StudentProfile = ()=>{
 
-    
+    const dispatch = useDispatch();
+    const {userData} = useSelector(userSelector);
+
+    useEffect(()=>{
+        dispatch(getUser(false))
+    },[dispatch])
+
+    if (!userData) {
+        return <p>Loading...</p>;
+    }
 
     return(
         <>
         <DashboardNavbar user="student" />
         <div className="stuprocontainer">
             <img src={user} className="stuproimg" alt="" />
-            <div className="stuproheading">Username
-            </div>
+            <div className="stuproheading">{userData.name}</div>
             <div className="stuproinfo">
                 <div className="tango">
                     <div className="subtitle">Username:</div>
-                    <div className="subtitle-content">random username</div>
+                    <div className="subtitle-content">{userData.name}</div>
                 </div>
                 <div className="tango">
                     <div className="subtitle">Email Address:</div>
-                    <div className="subtitle-content">random123@gmail.com</div>
+                    <div className="subtitle-content">{userData.email}</div>
                 </div>
                 <div className="tango">
                     <div className="subtitle">Password:</div>

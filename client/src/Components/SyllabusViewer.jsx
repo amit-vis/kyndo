@@ -31,7 +31,7 @@ export default function SyllabusViewer({findData, visible, closeSyllabus }) {
                         <div className="week-header">
                             <div className="week-head">Week {index + 1}</div>
                             <div className="drop">
-                                <i className={`fa-solid ${isContentVisible[index] ? 'fa-caret-down' : 'fa-caret-up'}`}
+                                <i className={`fa-solid ${isContentVisible[index] ? 'fa-caret-up' : 'fa-caret-down'}`}
                                     onClick={() => toggleContent(index)}></i>
                             </div>
                         </div>

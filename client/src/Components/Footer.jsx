@@ -30,7 +30,7 @@ export default function Footer() {
                 </p>
                 <div className="contact">
                     <p>Contact Us</p>
-                    <p>xxx@kyndo.com</p>
+                    <p>resunova2024@gmail.com</p>
                 </div>
             </div>
             <div className="copyright">

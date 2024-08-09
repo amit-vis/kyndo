@@ -1,6 +1,6 @@
 const Course = require('../model/course');
 
-exports.getCourseContent = async (req, res) => {
+module.exports.getCourseContent = async (req, res) => {
     const { courseId } = req.params;
 
     try {

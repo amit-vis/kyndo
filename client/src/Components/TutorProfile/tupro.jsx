@@ -1,24 +1,37 @@
 import './tupro.css';
 import DashboardNavbar from '../DashboardNavbar';
 import user from '../../assets/user.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser, userSelector } from '../../redux/reducer/formReducer';
+import { useEffect } from 'react';
+import { getCourse } from '../../redux/reducer/tutorReducer';
 
 
 const TutorProfile = ()=>{
+
+    const dispatch = useDispatch();
+    const {userData} = useSelector(userSelector);
+
+    useEffect(()=>{
+        dispatch(getUser(true))
+        dispatch(getCourse())
+    },[])
+
     return(
         <>
         <DashboardNavbar user="tutor" />
         <div className="tuprocontainer">
             <img src={user} className='tuproimg' alt="" />
-            <div className="tuproheading">Username <span>(Tutor)</span></div>
+            <div className="tuproheading">{userData.name} <span>(Tutor)</span></div>
             <div className="tuproinfo">
                 <div className="tuproinfoleft">
                     <div className="tango">
                         <div className="subtitle">Username:</div>
-                        <div className="subtitle-content">random username</div>
+                        <div className="subtitle-content">{userData.name}</div>
                     </div>
                     <div className="tango">
                         <div className="subtitle">Email address:</div>
-                        <div className="subtitle-content">random123@email.com</div>
+                        <div className="subtitle-content">{userData.email}</div>
                     </div>
                     <div className="tango">
                         <div className="subtitle">Password:</div>
