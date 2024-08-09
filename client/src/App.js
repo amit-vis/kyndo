@@ -16,7 +16,6 @@ import TutorProfile from './Components/TutorProfile/tupro';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import ForgotPassword from './Components/ForgotPassword';
-import CourseEnroll from './Components/CourseEnroll/CourseEnroll';
 import ViewCourse from './Components/ViewCourse';
 import ResetPassword from './Components/ResetPassword';
 import EnrollCourses from './Components/EnrollCourse/EnrollCourse';
@@ -34,18 +33,17 @@ function App() {
           <Route path='/courses' element={<Courses />} />
           <Route path='/student-dashboard/:id' element={<StudentDashboard />} />
           <Route path='/tutor-dashboard/:id' element={<TutorDashboard />} />
-          <Route path='/tutor/manage-course' element={<ManageCourses />} />
+          <Route path='/tutor/manage-course/:id' element={<ManageCourses />} />
           <Route path='/tutor/upload-course/:id' element={<UploadCourse />} />
           <Route path='/tutor/update-course/:id' element={<UpdateCourse />} />
           <Route path='/student-profile/:id' element={<StudentProfile />} />
-          <Route path='/student/course-enrolled' element={<CourseUploaded user="student" />} />
+          <Route path='/:role/course-enrolled' element={<CourseUploaded user="student" />} />
           <Route path='/tutor/course-uploaded/:id' element={<CourseUploaded user="tutor" />} />
           <Route path='/tutor/course-updated/:id' element={<CourseUploaded user="tutor" msg="update" />} />
           <Route path='/tutor-profile/:id' element={<TutorProfile />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path="/reset/:token" element={<ResetPassword />} />
-          <Route path='/student/course-enroll/:id' element={<CourseEnroll />} />
-          <Route path='/student/view-course/:id' element={<ViewCourse />} />
+          <Route path='/:role/view-course/:id' element={<ViewCourse />} />
           <Route path='/student/enroll/:id' element={<EnrollCourses />} />
         </Routes>
       </Router>

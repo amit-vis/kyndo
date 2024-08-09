@@ -21,7 +21,10 @@ const CourseUploaded = (props)=>{
     if(props.user === "tutor") {
         if(props.msg === "update") {
             msg = "Course has been updated successfully!";
-        } else {
+        } else if(props.msg === "enroll") {
+            msg = "You have been enrolled into the course successfully!"    
+        }
+        else {
             msg = "Your course has been uploaded successfully!";
         }
     } else {

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 export default function SyllabusViewer({findData, visible, closeSyllabus }) {
 
-    console.log(findData," from syllabus")
-
     const visibility = visible ? 'block' : 'none';
     const [isContentVisible, setIsContentVisible] = useState(false);
     

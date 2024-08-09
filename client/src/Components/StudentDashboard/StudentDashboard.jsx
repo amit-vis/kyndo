@@ -3,29 +3,22 @@ import DashboardNavbar from "../DashboardNavbar";
 import thumbnail from '../../assets/thumbnail.png';
 import Footer from "../Footer";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { getUser, userSelector } from "../../redux/reducer/formReducer";
-import { courseSelector, getCourse } from "../../redux/reducer/studentReducer";
+import { useNavigate } from "react-router-dom";
+import { courseSelector, getAllCourse, getCourse } from "../../redux/reducer/studentReducer";
 
 export default function StudentDashboard() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { userData } = useSelector(userSelector);
-    const { courseData, status, error } = useSelector(courseSelector);
-    console.log(courseData)
+    const {userData} = useSelector(userSelector);
+    const {courseData, AllCourseData, status, error} = useSelector(courseSelector);
 
-    useEffect(() => {
-        dispatch(getUser(false))
-            .unwrap()
-            .catch(err => console.error('Failed to fetch user:', err));
-    
+    useEffect(()=>{
+        dispatch(getUser())
         dispatch(getCourse())
-            .unwrap()
-            .catch(err => console.error('Failed to fetch courses:', err));
-    }, [dispatch]);
-    
-    if (status === 'pending') return <p>Loading...</p>;
-    if (status === 'Failed') return <p>{error?.message || 'Failed to load courses'}</p>;
+        dispatch(getAllCourse())
+    },[dispatch, courseData])
+
+    const navigate = useNavigate();
 
     const manageCourse = (value) => {
         navigate(`/student/view-course/${value}`);
@@ -41,8 +34,8 @@ export default function StudentDashboard() {
                     </p>
                     <p className="courses-head">Courses</p>
                     <div className="courses">
-                        {courseData?.length ? (
-                            courseData.map((item, index) => (
+                        {AllCourseData?.length ? (
+                            AllCourseData.map((item, index) => (
                                 <div className="course" key={index}>
                                     <div className="course-card">
                                         <img src={item.courseThumbnail} alt={item.title} onClick={() => manageCourse(item._id)} />
