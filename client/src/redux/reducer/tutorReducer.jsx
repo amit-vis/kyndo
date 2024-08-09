@@ -131,12 +131,39 @@ export const deleteCourses = createAsyncThunk("course/delete", async (id, {rejec
             return rejectedWithValue({ message: 'Network or other error occurred', error: error.message });
         }
     }
+});
+
+export const getAllCourse = createAsyncThunk("get/AllCourse", async (_,{rejectedWithValue})=>{
+    try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get('http://localhost:8000/course/allcourse',{
+            headers:{
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        if(response.status === 200){
+            const data = response.data;
+            return data
+        }else{
+            const errorData = response.data;
+            return rejectedWithValue(errorData)
+        }
+    } catch (error) {
+        if (error.response) {
+            console.error("Server responded with error:", error.response.data);
+            return rejectedWithValue({ message: 'Server error occurred', ...error.response.data });
+        } else {
+            console.error("Error message:", error.message);
+            return rejectedWithValue({ message: 'Network or other error occurred', error: error.message });
+        }
+    }
 })
 
 const initialState = {
     status: "idle",
     courseData: [],
     singleCourseData: null,
+    AllCourseData: [],
     error: null
 }
 
@@ -200,6 +227,17 @@ const courseSlice = createSlice({
             }
         })
         .addCase(deleteCourses.rejected, (state, action)=>{
+            state.status = "Failed"
+            state.error = action.payload
+        })
+        .addCase(getAllCourse.pending, (state)=>{
+            state.status = "pending"
+        })
+        .addCase(getAllCourse.fulfilled, (state, action)=>{
+            state.status = "succeeded"
+            state.AllCourseData = action.payload.course
+        })
+        .addCase(getAllCourse.rejected, (state, action)=>{
             state.status = "Failed"
             state.error = action.payload
         })

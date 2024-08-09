@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { courseSelector, getSinglecourse, deleteCourses } from "../../redux/reducer/tutorReducer";
 import { getUser, userSelector } from "../../redux/reducer/formReducer";
 import { Notification } from "../Notification";
+import { VideoModal } from "../videoPlayerModal/VideoPlayer";
 
 export default function ManageCourses() {
     const { id } = useParams();
@@ -19,6 +20,12 @@ export default function ManageCourses() {
     const [showModal, setShowModal] = useState(false);
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
+
+    const [showVideoModal, setShowVideoModal] = useState(false);
+
+    const handleVideoPlayer = ()=>{
+        setShowVideoModal(!showVideoModal)
+    }
 
     useEffect(() => {
         dispatch(getSinglecourse(id))
@@ -89,7 +96,11 @@ export default function ManageCourses() {
                         <div className="course-card">
                             {/* thumbnail */}
                             <img src={singleCourseData ? singleCourseData.courseThumbnail : thumbnail} alt={singleCourseData?.title}
-                                data-course="Zidio UI/UX Training Session" />
+                                data-course="Zidio UI/UX Training Session" onClick={handleVideoPlayer} />
+                            <VideoModal 
+                            sourceVideo={singleCourseData}
+                            show={showVideoModal} 
+                            onHide={()=>setShowVideoModal(false)} />
                         </div>
                     </div>
                 </div>

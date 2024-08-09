@@ -34,7 +34,7 @@ function App() {
           <Route path='/courses' element={<Courses />} />
           <Route path='/student-dashboard/:id' element={<StudentDashboard />} />
           <Route path='/tutor-dashboard/:id' element={<TutorDashboard />} />
-          <Route path='/tutor/manage-course' element={<ManageCourses />} />
+          <Route path='/tutor/manage-course/:id' element={<ManageCourses />} />
           <Route path='/tutor/upload-course/:id' element={<UploadCourse />} />
           <Route path='/tutor/update-course/:id' element={<UpdateCourse />} />
           <Route path='/student-profile/:id' element={<StudentProfile />} />
