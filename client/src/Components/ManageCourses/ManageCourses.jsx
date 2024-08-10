@@ -133,8 +133,8 @@ export default function ManageCourses() {
                             </div>
                         </div>
                         <div className="sub-des">
-                            <p className="subtitle">Author Name:</p>
-                            <p className="subtitle-content">{singleCourseData ? singleCourseData.author : "Zidio Development"}</p>
+                            <p className="subtitle">Assignment:</p>
+                            <a href={singleCourseData?.courseAssignments} className="subtitle-content">check</a>
                         </div>
                         <div className="sub-des">
                             <p className="subtitle">Total Enrollments:</p>

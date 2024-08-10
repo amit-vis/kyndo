@@ -142,6 +142,7 @@ export const getAllCourse = createAsyncThunk("get/AllCourse", async (_,{rejected
             }
         })
         if(response.status === 200){
+            console.log(response, "i m fron reducer")
             const data = response.data;
             return data
         }else{

@@ -16,7 +16,7 @@ export default function TutorDashboard() {
         dispatch(getUser())
         dispatch(getCourse())
         dispatch(getAllCourse())
-    },[dispatch, courseData])
+    },[dispatch, courseData,AllCourseData])
 
     const navigate = useNavigate();
 

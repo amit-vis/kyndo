@@ -5,18 +5,19 @@ import Footer from "../Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, userSelector } from "../../redux/reducer/formReducer";
 import { useNavigate } from "react-router-dom";
-import { courseSelector, getAllCourse, getCourse } from "../../redux/reducer/studentReducer";
+import { courseSelector, getAllCourse } from "../../redux/reducer/tutorReducer";
 
 export default function StudentDashboard() {
     const dispatch = useDispatch();
     const {userData} = useSelector(userSelector);
-    const {courseData, AllCourseData, status, error} = useSelector(courseSelector);
+    const { AllCourseData, status, error} = useSelector(courseSelector);
+
+    console.log(AllCourseData)
 
     useEffect(()=>{
         dispatch(getUser())
-        dispatch(getCourse())
         dispatch(getAllCourse())
-    },[dispatch, courseData])
+    },[dispatch])
 
     const navigate = useNavigate();
 
@@ -34,8 +35,7 @@ export default function StudentDashboard() {
                     </p>
                     <p className="courses-head">Courses</p>
                     <div className="courses">
-                        {AllCourseData?.length ? (
-                            AllCourseData.map((item, index) => (
+                        {AllCourseData?.map((item, index) => (
                                 <div className="course" key={index}>
                                     <div className="course-card">
                                         <img src={item.courseThumbnail} alt={item.title} onClick={() => manageCourse(item._id)} />
@@ -44,10 +44,7 @@ export default function StudentDashboard() {
                                         {item.title}
                                     </p>
                                 </div>
-                            ))
-                        ) : (
-                            <p>No courses available</p>
-                        )}
+                            ))}
                     </div>
                     <p className="courses-head">My Courses</p>
                     <div className="courses">
