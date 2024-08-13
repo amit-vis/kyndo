@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const courseController = require("../controller/course_controller");
-const ensureEnrollment = require("../middleware/ensureEnrollment");
+const enrollnmentController = require("../controller/enrollment_controller");
+const passport = require("passport");
+const { checkBlacklist } = require("../config/checkblacklist");
 
-router.get("/course-content/:courseId", ensureEnrollment, courseController.getCourseContent);
+router.post("/:id", passport.authenticate("user-jwt", {session: false}), checkBlacklist, enrollnmentController.enroll)
+router.get("/getCourse", enrollnmentController.getEnrollCourse)
+
 
 module.exports = router;

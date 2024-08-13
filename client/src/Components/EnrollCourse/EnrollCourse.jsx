@@ -7,20 +7,51 @@ import SyllabusViewer from "../SyllabusViewer";
 import { useDispatch, useSelector } from "react-redux";
 import { courseSelector, getSinglecourse } from "../../redux/reducer/tutorReducer";
 import { getUser, userSelector } from "../../redux/reducer/formReducer";
+import { Notification } from "../Notification";
+import { EnrollCourse } from "../../redux/reducer/studentReducer";
 
 export default function EnrollCourses() {
     const {id} = useParams();
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const {singleCourseData, status, error} = useSelector(courseSelector);
-    const {userData} = useSelector(userSelector)
+    const {userData} = useSelector(userSelector);
+
+    const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = useState("");
+    const [isError, setIsError] = useState(false);
 
     useEffect(()=>{
         dispatch(getSinglecourse(id))
-        dispatch(getUser())
-    },[dispatch])
-    const updateCourse = () => {
-        navigate(`/tutor/update-course/${singleCourseData?._id}`);
+        dispatch(getUser(false))
+    },[dispatch, id])
+    const enrollCourse = async () => {
+        try {
+            const result = await dispatch(EnrollCourse(singleCourseData._id));
+            if(EnrollCourse.fulfilled.match(result)){
+                setShowModal(true);
+                setIsError(false);
+                setMessage(result.payload.message);
+                setTimeout(()=>{
+                    setShowModal(false)
+                    navigate(`/student-dashboard/${userData._id}`)
+                },3000)
+            }else{
+                setShowModal(true);
+                setIsError(true);
+                setMessage(result.payload.message);
+                setTimeout(()=>{
+                    setShowModal(false)
+                },3000)
+            }
+        } catch (error) {
+            setShowModal(true);
+            setIsError(true);
+            setMessage(error.message);
+            setTimeout(()=>{
+                setShowModal(false)
+            },3000)
+        }
     }
 
  
@@ -45,7 +76,7 @@ export default function EnrollCourses() {
 
     return(
         <>
-        <DashboardNavbar user="tutor" />
+        <DashboardNavbar user="student" />
         <SyllabusViewer findData={singleCourseData} visible={syllabusVisible} closeSyllabus={closeSyllabus}  />
         <div id="manage-course" className="manage-course">
             <div className="courses-head">{singleCourseData?singleCourseData.title:"Zidio UI/UX Training Session"}</div>
@@ -100,10 +131,16 @@ export default function EnrollCourses() {
            
             <div className="row">
 
-                <div className="col-lg-12 col-md-12 col-sm-12"><button className="btn update" onClick={updateCourse}>Enroll</button></div>
+                <div className="col-lg-12 col-md-12 col-sm-12"><button className="btn update" onClick={enrollCourse}>Enroll</button></div>
             </div>
         </div>
         <Footer />
+        <Notification
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        message={message}
+        isError={isError}
+        />
         </>
     )
 }

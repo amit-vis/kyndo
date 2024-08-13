@@ -10,11 +10,9 @@ const enrollmentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Course",
         required: true
-    },
-    enrolledAt: {
-        type: Date,
-        default: Date.now
     }
+},{
+    timestamps: true
 });
 
 const Enrollment = mongoose.model("Enrollment", enrollmentSchema);

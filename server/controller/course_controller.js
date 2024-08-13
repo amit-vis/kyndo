@@ -1,4 +1,5 @@
 const Course = require('../model/course');
+const cloudinary = require("../config/cloudnary")
 
 module.exports.create = async (req, res) => {
     try {
@@ -42,14 +43,14 @@ module.exports.create = async (req, res) => {
         if (req.files && req.files.courseNotes) {
             const notesFile = req.files.courseNotes;
             const result = await uploadFile(notesFile, "Amit/notes", 'raw');
-            courseNotes = result.secure_url;
+            courseNotes = result.secure_url
         }
 
         // Upload course assignments if present
         if (req.files && req.files.courseAssignments) {
             const assignmentFile = req.files.courseAssignments;
             const result = await uploadFile(assignmentFile, "Amit/assignments", 'raw');
-            courseAssignments = result.secure_url;
+            courseAssignments = result.secure_url
         }
 
         // Upload course thumbnail if present
@@ -166,16 +167,16 @@ module.exports.editCourse = async (req, res)=>{
         if(req.files && req.files.courseNotes){
             const notesFile = req.files.courseNotes;
             const result = await uploadFile(notesFile, "Amit/notes", "raw");
-            courseNotes= result.secure_url 
+            courseNotes= result.secure_url
         }
         if(req.files && req.files.courseAssignments){
             const assignmentFile = req.files.courseAssignments;
             const result = await uploadFile(assignmentFile, "Amit/assignments", "raw");
-            courseAssignments=result.secure_url 
+            courseAssignments=result.secure_url
         }
         if(req.files && req.files.courseThumbnail){
             const thumbnailFile = req.files.courseThumbnail;
-            const result = await uploadFile(thumbnailFile, "Amit/thumbnails", "raw");
+            const result = await uploadFile(thumbnailFile, "Amit/thumbnails", "image");
             courseThumbnail = result.secure_url
         }
 
@@ -207,6 +208,7 @@ module.exports.editCourse = async (req, res)=>{
         })
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             message: "Internal server error in updating the course!",
             success: false

@@ -22,7 +22,7 @@ export default function StudentDashboard() {
     const navigate = useNavigate();
 
     const manageCourse = (value) => {
-        navigate(`/student/view-course/${value}`);
+        navigate(`/student/enroll/${value}`);
     }
 
     return (

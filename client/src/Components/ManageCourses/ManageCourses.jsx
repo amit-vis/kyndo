@@ -134,7 +134,11 @@ export default function ManageCourses() {
                         </div>
                         <div className="sub-des">
                             <p className="subtitle">Assignment:</p>
-                            <a href={singleCourseData?.courseAssignments} className="subtitle-content">check</a>
+                            <a href={singleCourseData?.courseAssignments} className="subtitle-content text-light">Download assignment</a>
+                        </div>
+                        <div className="sub-des">
+                            <p className="subtitle">Notes:</p>
+                            <a href={singleCourseData?.courseNotes} className="subtitle-content text-light">Download Notes</a>
                         </div>
                         <div className="sub-des">
                             <p className="subtitle">Total Enrollments:</p>
