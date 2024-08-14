@@ -38,7 +38,7 @@ module.exports.enroll = async (req, res)=>{
 
 module.exports.getEnrollCourse = async (req, res)=>{
     try {
-        const enrollment = await Enrollment.find({}).populate('course');
+        const enrollment = await Enrollment.find({user: req.user._id}).populate('course');
         if(!enrollment || enrollment.length === 0){
             return res.status(400).message({
                 message: "No courses enroll or courses not found",
@@ -53,6 +53,28 @@ module.exports.getEnrollCourse = async (req, res)=>{
     } catch (error) {
         return res.status(500).json({
             message:"Internal server error in getting the course",
+            error: error.message
+        })
+    }
+}
+
+module.exports.enrollnmentCount = async (req, res)=>{
+    try {
+        const userCount = await Enrollment.countDocuments({course: req.params.id});
+        if(!userCount){
+            return res.status(400).message({
+                message: "No courses enroll or courses not found",
+                success: false
+            })
+        }
+        return res.status(200).json({
+            message: "here is enrollnment count!",
+            success: true,
+            count: userCount
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message:"Internal server error in getting the enrollnment count",
             error: error.message
         })
     }

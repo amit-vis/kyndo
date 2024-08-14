@@ -6,23 +6,42 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, userSelector } from "../../redux/reducer/formReducer";
 import { useNavigate } from "react-router-dom";
 import { courseSelector, getAllCourse } from "../../redux/reducer/tutorReducer";
+import { getEnrollCourse, studentSelector } from "../../redux/reducer/studentReducer";
 
 export default function StudentDashboard() {
     const dispatch = useDispatch();
     const {userData} = useSelector(userSelector);
     const { AllCourseData, status, error} = useSelector(courseSelector);
+    const {enrollCourseData} = useSelector(studentSelector);
 
-    console.log(AllCourseData)
+    // const data = enrollCourseData?.map((item) => {
+    //     return item.course.map((courseItem) => {
+    //         console.log(courseItem);
+    //         return courseItem; // Return the courseItem if you need to collect these into a new array
+    //     });
+    // });
+    
+    // console.log("Here is the data", data);
 
     useEffect(()=>{
         dispatch(getUser())
         dispatch(getAllCourse())
+        dispatch(getEnrollCourse())
     },[dispatch])
 
     const navigate = useNavigate();
 
     const manageCourse = (value) => {
         navigate(`/student/enroll/${value}`);
+    }
+
+    const getProgressVideo = (videoId)=>{
+        const progress = localStorage.getItem(`video-progress-${videoId}`);
+        return progress ? parseFloat(progress): 0
+    }
+
+    const viewcourse = (value)=>{
+        navigate(`/student/view-course/${value}`)
     }
 
     return (
@@ -47,20 +66,22 @@ export default function StudentDashboard() {
                             ))}
                     </div>
                     <p className="courses-head">My Courses</p>
-                    <div className="courses">
+                    {enrollCourseData?.map((item,index)=>(
+                        <div className="courses" key={index}>
                         <div className="course">
                             <div className="course-card">
-                                <img src={thumbnail} alt="" />
+                                <img src={item? item.course.courseThumbnail: thumbnail} alt={item.course.title} onClick={()=>viewcourse(item.course._id)} />
                             </div>
-                            <p className="course-name">Zidio UI/UX Training Session</p>
+                            <p className="course-name">{item? item.course.title:"Zidio UI/UX Training Session"}</p>
                             <div className="bar">
                                 <div className="completed">
-                                    <div className="progress" style={{ width: '75%' }}></div>
+                                    <div className="progress" style={{ width: `${getProgressVideo(item.course._id)}%` }}></div>
                                 </div>
-                                <p className="percentage">75%</p>
+                                <p className="percentage">{Math.round(getProgressVideo(item.course._id))}%</p>
                             </div>
                         </div>
                     </div>
+                    ))}
                 </div>
                 <Footer />
             </div>

@@ -9,12 +9,14 @@ import { courseSelector, getSinglecourse, deleteCourses } from "../../redux/redu
 import { getUser, userSelector } from "../../redux/reducer/formReducer";
 import { Notification } from "../Notification";
 import { VideoModal } from "../videoPlayerModal/VideoPlayer";
+import { enrollCount, studentSelector } from "../../redux/reducer/studentReducer";
 
 export default function ManageCourses() {
     const { id } = useParams();
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const { singleCourseData, status, error } = useSelector(courseSelector);
+    const {count} = useSelector(studentSelector)
     const { userData } = useSelector(userSelector);
 
     const [showModal, setShowModal] = useState(false);
@@ -30,6 +32,7 @@ export default function ManageCourses() {
     useEffect(() => {
         dispatch(getSinglecourse(id))
         dispatch(getUser(true))
+        dispatch(enrollCount(id))
     }, [dispatch,id])
     const updateCourse = () => {
         navigate(`/tutor/update-course/${singleCourseData?._id}`);
@@ -142,7 +145,7 @@ export default function ManageCourses() {
                         </div>
                         <div className="sub-des">
                             <p className="subtitle">Total Enrollments:</p>
-                            <p className="subtitle-content">20,000</p>
+                            <p className="subtitle-content">{count}</p>
                         </div>
                     </div>
                 </div>

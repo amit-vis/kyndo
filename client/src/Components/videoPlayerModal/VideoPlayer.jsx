@@ -1,7 +1,22 @@
-import { Button, Modal } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
 import ReactPlayer from "react-player";
 
 export const VideoModal = ({show,onHide, sourceVideo})=>{
+    const [playPercentage, setPlayPercentage] = useState(0);
+    const localStorageKey = `video-progress-${sourceVideo?._id}`;
+    useEffect(()=>{
+        const savedProgress = localStorage.getItem(localStorageKey);
+        if(savedProgress){
+            setPlayPercentage(parseFloat(savedProgress))
+        }
+    },[sourceVideo, localStorageKey])
+    const handleProgress = (progress)=>{
+        let played;
+        const percentage = progress.played*100;
+        setPlayPercentage(percentage);
+        localStorage.setItem(localStorageKey, percentage.toString())
+    }
     return(
         <Modal show={show} fullscreen={true} onHide={onHide}>
             <Modal.Header closeButton>
@@ -16,6 +31,7 @@ export const VideoModal = ({show,onHide, sourceVideo})=>{
                     width="100%"
                     height="100%"
                     volume={null}
+                    onProgress={handleProgress}
                 />
             </Modal.Body>
         </Modal>

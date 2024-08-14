@@ -43,7 +43,7 @@ function App() {
           <Route path='/tutor-profile/:id' element={<TutorProfile />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path="/reset/:token" element={<ResetPassword />} />
-          <Route path='/:role/view-course/:id' element={<ViewCourse />} />
+          <Route path='/student/view-course/:id' element={<ViewCourse />} />
           <Route path='/student/enroll/:id' element={<EnrollCourses />} />
         </Routes>
       </Router>
