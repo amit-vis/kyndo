@@ -9,7 +9,7 @@ import { courseSelector, getSinglecourse  } from "../redux/reducer/tutorReducer"
 import { VideoModal } from "./videoPlayerModal/VideoPlayer";
 
 export default function ViewCourse() {
-    const { id } = useParams();
+    const { role, id } = useParams();
     const dispatch = useDispatch();
     const {singleCourseData} = useSelector(courseSelector);
     const {userData} = useSelector(userSelector);
@@ -21,10 +21,12 @@ export default function ViewCourse() {
         setShowVideoModal(!showVideoModal)
     }
 
+    const isTutor = role === "tutor"
+
     useEffect(() => {
-        dispatch(getUser(false));
+        dispatch(getUser(isTutor));
         dispatch(getSinglecourse(id));
-    }, [dispatch, id]);
+    }, [dispatch, id, isTutor]);
     
 
     const viewSyllabus = () => {
@@ -49,6 +51,7 @@ export default function ViewCourse() {
             <DashboardNavbar user="student" />
             <SyllabusViewer findData={singleCourseData} visible={syllabusVisible} closeSyllabus={closeSyllabus} />
             <div id="manage-course" className="manage-course">
+                <div className="courses-head">{singleCourseData ? singleCourseData.title : "Zidio UI/UX Training Session"}</div>
                 <div className="course-thumbnail">
                     <div className="course">
                         <div className="course-card">
@@ -96,8 +99,10 @@ export default function ViewCourse() {
                         </div>
                         <div className="sub-des">
                             <p className="subtitle">Notes:</p>
-                            <a href={singleCourseData?.courseNotes} className="subtitle-content text-light">click</a>
-                            <small>Note:- Kindly put .pdf extension at the end of the downloaded file</small>
+                            <div className="subtitle-content">
+                                <a href={singleCourseData?.courseNotes} className="subtitle-content text-light">click</a>
+                                <small>Note:- Kindly put .pdf extension at the end of the downloaded file</small>
+                            </div>
                         </div>
                         <div className="sub-des">
                             <p className="subtitle">Assignment:</p>

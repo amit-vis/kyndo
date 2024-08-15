@@ -704,6 +704,12 @@ select.input {
   text-align: right;
 }
 
+.align-right {
+  display: flex !important;
+  font-size: .8rem !important;
+  margin: 0 0 0 auto;
+}
+
 
 
 @media (max-width: 1024px) {

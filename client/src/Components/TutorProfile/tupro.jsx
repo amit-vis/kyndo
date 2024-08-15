@@ -15,7 +15,11 @@ const TutorProfile = ()=>{
     useEffect(()=>{
         dispatch(getUser(true))
         dispatch(getCourse())
-    },[])
+    },[dispatch])
+    
+    if (!userData) {
+        return <p>Loading...</p>;
+    }
 
     return(
         <>

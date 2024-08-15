@@ -95,7 +95,7 @@ export default function StudentDashboard() {
                     {enrollCourseData?.map((item,index)=>(
                         <div className="courses" key={index}>
                         <div className="course">
-                        <button onClick={()=>deleteCourse(item._id,item.course._id)}>delete</button>
+                            <button className=" w-auto py-2 px-4 bg-transparent text-light btn btn-outline-danger mb-1 align-right" onClick={()=>deleteCourse(item._id,item.course._id)}>Unenroll</button>
                             <div className="course-card">
                                 <img src={item? item.course.courseThumbnail: thumbnail} alt={item.course.title} onClick={()=>viewcourse(item.course._id)} />
                             </div>
