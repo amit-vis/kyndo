@@ -7,5 +7,6 @@ const { checkBlacklist } = require("../config/checkblacklist");
 router.post("/:id", passport.authenticate("user-jwt", {session: false}), checkBlacklist, enrollnmentController.enroll);
 router.get("/getCourse",passport.authenticate("user-jwt", {session: false}), checkBlacklist, enrollnmentController.getEnrollCourse);
 router.get("/enroll-Count/:id", enrollnmentController.enrollnmentCount);
+router.delete("/delete/:id",passport.authenticate("user-jwt", {session: false}), checkBlacklist, enrollnmentController.delete);
 
 module.exports = router;

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import SyllabusViewer from "./SyllabusViewer";
 import DashboardNavbar from "./DashboardNavbar";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../redux/reducer/formReducer";
+import { getUser, userSelector } from "../redux/reducer/formReducer";
 import { courseSelector, getSinglecourse  } from "../redux/reducer/tutorReducer";
 import { VideoModal } from "./videoPlayerModal/VideoPlayer";
 
@@ -12,6 +12,7 @@ export default function ViewCourse() {
     const { id } = useParams();
     const dispatch = useDispatch();
     const {singleCourseData} = useSelector(courseSelector);
+    const {userData} = useSelector(userSelector);
 
     const [syllabusVisible, setSyllabusVisible] = useState(false);
     const [showVideoModal, setShowVideoModal] = useState(false);
@@ -57,6 +58,7 @@ export default function ViewCourse() {
                                 onClick={handleVideoPlayer}
                             />
                             <VideoModal 
+                            userId={userData?._id}
                             sourceVideo={singleCourseData}
                             show={showVideoModal} 
                             onHide={()=>setShowVideoModal(false)} />

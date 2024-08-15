@@ -79,3 +79,25 @@ module.exports.enrollnmentCount = async (req, res)=>{
         })
     }
 }
+
+module.exports.delete = async (req, res)=>{
+    try {
+        const deleteEnroll = await Enrollment.findByIdAndDelete(req.params.id);
+        if(!deleteEnroll){
+            return res.status(400).json({
+                message: "No courses enroll or courses not found",
+                success: false
+            })
+        }
+        return res.status(200).json({
+            message: "course removed successfully!",
+            success: true,
+            enrollId: req.params.id
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message:"Internal server error in deleting the enrollnment course",
+            error: error.message
+        })
+    }
+}
